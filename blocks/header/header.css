@@ -1,0 +1,19 @@
+.header {
+    width: 100%;
+    padding-top: 20px;
+    border-bottom: 1px solid #545454;
+}
+
+@media screen and (min-width: 768px) {
+    .header {
+        width: 80%;
+        padding-top: 40px;
+        margin: 0 auto;
+    }
+}
+
+@media screen and (min-width: 1044px) {
+    .header {
+        width: 70%;
+    }
+}
