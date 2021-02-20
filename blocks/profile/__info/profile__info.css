@@ -1,0 +1,6 @@
+@media screen and (min-width: 830px) {
+    .profile__info {
+        margin-right: auto;
+        padding-left: 30px;
+    }
+}

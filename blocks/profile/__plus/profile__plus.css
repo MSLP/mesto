@@ -1,0 +1,14 @@
+.profile__plus {
+    background: url(../../../images/Add-Button.svg);
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 16px;
+    height: 16px;
+}
+
+@media screen and (min-width: 768px) {
+    .profile__plus {
+        width: 22px;
+        height: 22px;
+    }
+}
