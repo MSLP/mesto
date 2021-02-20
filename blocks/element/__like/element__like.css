@@ -1,0 +1,10 @@
+.element__like {
+    display: inline-block;
+    margin: 0;
+    background-image: url(../../../images/Like.svg);
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 22px;
+    height: 19px;
+    align-self: center;
+}
