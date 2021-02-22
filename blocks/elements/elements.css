@@ -1,22 +1,27 @@
 .elements {
-    margin: 0 auto;
-    width: 90%;
-    display: grid;
-    grid-template-columns: 1fr;
-    row-gap: 20px;
+  margin: 0 auto;
+  width: 90%;
+  display: grid;
+  grid-template-columns: 1fr;
+  row-gap: 20px;
 }
 
 @media screen and (min-width: 768px) {
-    .elements {
-        width: 80%;
-        grid-template-columns: 1fr 1fr;
-        column-gap: 17px;
-    }
+  .elements {
+    width: 80%;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 17px;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .elements {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 
 @media screen and (min-width: 1280px) {
-    .elements {
-        width: 70%;
-        grid-template-columns: repeat(3, 1fr);
-    }
+  .elements {
+    width: 70%;
+  }
 }
