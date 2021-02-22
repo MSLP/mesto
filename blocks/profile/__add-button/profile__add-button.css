@@ -1,9 +1,11 @@
 .profile__add-button {
   background-color: transparent;
   border: 1px solid #ffffff;
-  padding: 17px 134px;
+  padding: 0;
   display: block;
   margin: 0 auto;
+  min-width: 282px;
+  min-height: 50px;
 }
 
 .profile__add-button:hover {
@@ -11,10 +13,9 @@
   cursor: pointer;
 }
 
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 1024px) {
   .profile__add-button {
     margin: 0;
-    padding: 14px 64px;
-    max-height: 50px;
+    min-width: 150px;
   }
 }
