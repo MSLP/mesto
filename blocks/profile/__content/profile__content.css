@@ -1,9 +1,10 @@
 .profile__content {
-  text-align: center;
+  display: flex;
+  justify-content: center;
 }
 
 @media screen and (min-width: 768px) {
   .profile__content {
-    text-align: left;
+    justify-content: flex-start;
   }
 }
