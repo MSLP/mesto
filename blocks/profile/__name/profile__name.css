@@ -1,5 +1,6 @@
 .profile__name {
-  display: inline;
+  display: inline-block;
+  max-width: 85%;
   margin: 0;
   padding: 0;
   font-size: 27px;
