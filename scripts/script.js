@@ -19,7 +19,9 @@ function closePopup() {
 
 function savePopup(evt) {
   evt.preventDefault();
-  profileName.childNodes[0].textContent = inputName.value;
+  if (inputName.value.length !== 0)
+    profileName.childNodes[0].textContent = inputName.value;
+  if (inputDescription.value.length !== 0)
   profileDescription.textContent = inputDescription.value;
   closePopup();
 }
