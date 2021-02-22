@@ -8,20 +8,20 @@ let profileDescription = document.querySelector('.profile__description');
 let editForm = document.querySelector('.popup__form');
 
 function showPopup() {
-    inputName.value = profileName.textContent;
-    inputDescription.value = profileDescription.textContent;
-    popup.classList.add('popup_opened');
+  inputName.value = profileName.textContent;
+  inputDescription.value = profileDescription.textContent;
+  popup.classList.add('popup_opened');
 }
 
 function closePopup() {
-    popup.classList.remove('popup_opened');
+  popup.classList.remove('popup_opened');
 }
 
 function savePopup(evt) {
-    evt.preventDefault();
-    profileName.childNodes[0].textContent = inputName.value;
-    profileDescription.textContent = inputDescription.value;
-    closePopup();
+  evt.preventDefault();
+  profileName.childNodes[0].textContent = inputName.value;
+  profileDescription.textContent = inputDescription.value;
+  closePopup();
 }
 
 editButton.addEventListener('click', showPopup);

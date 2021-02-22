@@ -1,6 +1,26 @@
+.profile__info {
+  padding-top: 26px;
+  width: 80%;
+  margin: 0 auto;
+}
+
+@media screen and (min-width: 768px) {
+  .profile__info {
+    max-width: 65%;
+    padding-top: 0;
+  }
+}
+
 @media screen and (min-width: 830px) {
-    .profile__info {
-        margin-right: auto;
-        padding-left: 30px;
-    }
+  .profile__info {
+    margin: 0;
+    margin-right: auto;
+    padding-left: 30px;
+  }
+}
+
+@media screen and (min-width: 1044px) {
+  .profile__info {
+    max-width: 60%;
+  }
 }

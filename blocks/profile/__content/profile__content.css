@@ -1,0 +1,9 @@
+.profile__content {
+  text-align: center;
+}
+
+@media screen and (min-width: 768px) {
+  .profile__content {
+    text-align: left;
+  }
+}
