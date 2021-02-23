@@ -19,9 +19,7 @@ function closePopup() {
 
 function savePopup(evt) {
   evt.preventDefault();
-  if (inputName.value.length !== 0)
-    profileName.childNodes[0].textContent = inputName.value;
-  if (inputDescription.value.length !== 0)
+  profileName.textContent = inputName.value;
   profileDescription.textContent = inputDescription.value;
   closePopup();
 }
