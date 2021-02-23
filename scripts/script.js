@@ -7,16 +7,19 @@ let profileName = document.querySelector('.profile__name');
 let profileDescription = document.querySelector('.profile__description');
 let editForm = document.querySelector('.popup__form');
 
+// открытие окна редактирования профиля
 function showPopup() {
   inputName.value = profileName.textContent;
   inputDescription.value = profileDescription.textContent;
   popup.classList.add('popup_opened');
 }
 
+// закрытие окна редактирования профиля
 function closePopup() {
   popup.classList.remove('popup_opened');
 }
 
+// сохранение формы редактирования профиля
 function savePopup(evt) {
   evt.preventDefault();
   profileName.textContent = inputName.value;
