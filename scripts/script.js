@@ -1,3 +1,42 @@
+//массив данных об изначальном фото-контенте
+const initialElements = [
+  {
+    name: 'Карачаево-Черкесия',
+    link: './images/karachaevo.jpg'
+  },
+  {
+    name: 'Эльбрус',
+    link: './images/elbrus.jpg'
+  },
+  {
+    name: 'Домбай',
+    link: './images/dombay.jpg'
+  },
+  {
+    name: 'Карачаево-Черкесия',
+    link: './images/karachaevo.jpg'
+  },
+  {
+    name: 'Эльбрус',
+    link: './images/elbrus.jpg'
+  },
+  {
+    name: 'Домбай',
+    link: './images/dombay.jpg'
+  }
+]
+
+//отображение фотографий на странице
+const elements = document.querySelector('.elements');
+const elementTemplate = document.querySelector('#element').content;
+initialElements.forEach(el => {
+  let element = elementTemplate.querySelector('.element').cloneNode(true);
+  element.querySelector('.element__img').src = el.link;
+  element.querySelector('.element__img').alt = el.name;
+  element.querySelector('.element__title').textContent = el.name;
+  elements.append(element);
+});
+
 let editButton = document.querySelector('.profile__edit-button');
 let popup = document.querySelector('.popup');
 let popupCloseButton = document.querySelector('.popup__close');

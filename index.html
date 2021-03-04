@@ -11,61 +11,28 @@
         <img class="header__logo" src="./images/Vector.svg" alt="логотип">
     </header>
     <main>
-        <section class="profile">
-            <img class="profile__avatar" src="./images/profile.jpg" alt="аватарка">
-            <div class="profile__info">
-              <div class="profile__content">
-                <h1 class="profile__name">Жак-Ив Кусто</h1>
-                <button type="button" class="profile__edit-button button"></button>
-              </div>
-                <p class="profile__description">Исследователь океана</p>
+      <section class="profile">
+          <img class="profile__avatar" src="./images/profile.jpg" alt="аватарка">
+          <div class="profile__info">
+            <div class="profile__content">
+              <h1 class="profile__name">Жак-Ив Кусто</h1>
+              <button type="button" class="profile__edit-button button"></button>
             </div>
-            <button type="button" class="profile__add-button button"></button>
-        </section>
-        <section class="elements">
-            <div class="element">
-                <img class="element__img" src="./images/karachaevo.jpg" alt="Карачаево-Черкесия">
-                <div class="element__text">
-                    <h2 class="element__title">Карачаево-Черкесия</h2>
-                    <button type="button" class="element__like button"></button>
-                </div>
+              <p class="profile__description">Исследователь океана</p>
+          </div>
+          <button type="button" class="profile__add-button button"></button>
+      </section>
+      <section class="elements">
+        <template id="element">
+          <div class="element">
+            <img class="element__img">
+            <div class="element__text">
+              <h2 class="element__title"></h2>
+              <button type="button" class="element__like button"></button>
             </div>
-            <div class="element">
-                <img class="element__img" src="./images/elbrus.jpg" alt="Эльбрус">
-                <div class="element__text">
-                    <h2 class="element__title">Эльбрус</h2>
-                    <button type="button" class="element__like button"></button>
-                </div>
-            </div>
-            <div class="element">
-                <img class="element__img" src="./images/dombay.jpg" alt="Домбай">
-                <div class="element__text">
-                    <h2 class="element__title">Домбай</h2>
-                    <button type="button" class="element__like button"></button>
-                </div>
-            </div>
-            <div class="element">
-                <img class="element__img" src="./images/karachaevo.jpg" alt="Карачаево-Черкесия">
-                <div class="element__text">
-                    <h2 class="element__title">Карачаево-Черкесия</h2>
-                    <button type="button" class="element__like button"></button>
-                </div>
-            </div>
-            <div class="element">
-                <img class="element__img" src="./images/elbrus.jpg" alt="Эльбрус">
-                <div class="element__text">
-                    <h2 class="element__title">Эльбрус</h2>
-                    <button type="button" class="element__like button"></button>
-                </div>
-            </div>
-            <div class="element">
-                <img class="element__img" src="./images/dombay.jpg" alt="Домбай">
-                <div class="element__text">
-                    <h2 class="element__title">Домбай</h2>
-                    <button type="button" class="element__like button"></button>
-                </div>
-            </div>
-        </section>
+          </div>
+        </template>
+      </section>
     </main>
     <footer class="footer">
         <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
