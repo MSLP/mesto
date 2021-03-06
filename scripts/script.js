@@ -33,6 +33,10 @@ function createElement(el) {
   element.querySelector('.element__img').alt = el.name;
   element.querySelector('.element__title').textContent = el.name;
   elements.prepend(element);
+
+  // кнопка и событие для добавления/удаления лайка на фото
+  let likeButton = element.querySelector('.element__like');
+  likeButton.addEventListener('click', like);
 }
 
 // отображение начальных карточек с фотографиями на странице
@@ -58,7 +62,6 @@ const inputPhotoName = document.querySelector('.popup__input_photo-name');
 const inputLink = document.querySelector('.popup__input_photo-link');
 const addCloseButton = document.querySelector('.popup__close_add-picture');
 const addForm = document.querySelector('.popup__add-form');
-
 
 // открытие всплывающего окна
 function showPopup(popupName) {
@@ -92,6 +95,11 @@ function saveAddPopup(evt) {
   }
   createElement(newPhoto);
   closePopup(popupAddPicture);
+}
+
+// функция добавления/удаления лайка с фото-карточки
+function like(evt) {
+  evt.target.classList.toggle('element__like_active');
 }
 
 editButton.addEventListener('click', function() {showPopup(popupEditProfile)});
