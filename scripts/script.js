@@ -37,6 +37,12 @@ function createElement(el) {
   // кнопка и событие для добавления/удаления лайка на фото
   let likeButton = element.querySelector('.element__like');
   likeButton.addEventListener('click', like);
+
+  // кнопка и событие удаления карточки с фотографией
+  let deleteButton = element.querySelector('.element__bin');
+  deleteButton.addEventListener('click',function() {
+    element.remove();
+  });
 }
 
 // отображение начальных карточек с фотографиями на странице

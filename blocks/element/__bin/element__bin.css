@@ -10,3 +10,8 @@
   top: -97%;
   right: -90%;
 }
+
+.element__bin:hover {
+  cursor: pointer;
+  opacity: 0.6;
+}
