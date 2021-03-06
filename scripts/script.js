@@ -36,7 +36,9 @@ function createElement(el) {
 
   // кнопка и событие для добавления/удаления лайка на фото
   let likeButton = element.querySelector('.element__like');
-  likeButton.addEventListener('click', like);
+  likeButton.addEventListener('click', function() {
+    likeButton.classList.toggle('element__like_active');
+  });
 
   // кнопка и событие удаления карточки с фотографией
   let deleteButton = element.querySelector('.element__bin');
@@ -101,11 +103,6 @@ function saveAddPopup(evt) {
   }
   createElement(newPhoto);
   closePopup(popupAddPicture);
-}
-
-// функция добавления/удаления лайка с фото-карточки
-function like(evt) {
-  evt.target.classList.toggle('element__like_active');
 }
 
 editButton.addEventListener('click', function() {showPopup(popupEditProfile)});
