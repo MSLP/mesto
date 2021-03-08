@@ -6,9 +6,9 @@
   border: 0;
   width: 20px;
   height: 20px;
-  position: relative;
-  top: -97%;
-  right: -90%;
+  position: absolute;
+  top: 5%;
+  right: 5%;
 }
 
 .element__bin:hover {
