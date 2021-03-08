@@ -42,8 +42,17 @@ function createElement(el) {
 
   // кнопка и событие удаления карточки с фотографией
   let deleteButton = element.querySelector('.element__bin');
-  deleteButton.addEventListener('click',function() {
+  deleteButton.addEventListener('click', function() {
     element.remove();
+  });
+
+  // кнопка для открытия фотографии на всё окно
+  let showButton = element.querySelector('.element__show-img');
+  showButton.addEventListener('click', function() {
+    popupPic.src = el.link;
+    popupPic.alt = el.name;
+    popupPicTitle.textContent = el.name;
+    showPopup(popupShowPicture);
   });
 }
 
@@ -70,6 +79,12 @@ const inputPhotoName = document.querySelector('.popup__input_photo-name');
 const inputLink = document.querySelector('.popup__input_photo-link');
 const addCloseButton = document.querySelector('.popup__close_add-picture');
 const addForm = document.querySelector('.popup__add-form');
+
+// переменные для работы с окном с фотографией
+const popupShowPicture = document.querySelector('.popup__show-picture');
+const showCloseButton = document.querySelector('.popup__close_show-picture');
+const popupPic = document.querySelector('.popup__picture');
+const popupPicTitle = document.querySelector('.popup__pic-title');
 
 // открытие всплывающего окна
 function showPopup(popupName) {
@@ -115,5 +130,6 @@ editButton.addEventListener('click', function() {showPopup(popupEditProfile)});
 addButton.addEventListener('click', function() {showPopup(popupAddPicture)});
 editCloseButton.addEventListener('click', function() {closePopup(popupEditProfile)});
 addCloseButton.addEventListener('click', function() {closePopup(popupAddPicture)});
+showCloseButton.addEventListener('click', function() {closePopup(popupShowPicture)});
 editForm.addEventListener('submit', saveEditPopup);
 addForm.addEventListener('submit', saveAddPopup);
