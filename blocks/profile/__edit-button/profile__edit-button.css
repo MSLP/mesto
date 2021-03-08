@@ -5,15 +5,12 @@
   background-size: contain;
   width: 18px;
   height: 18px;
-  border: none;
-  padding: 0;
   margin-left: 10px;
   align-self: center;
 }
 
 .profile__edit-button:hover {
   opacity: 0.6;
-  cursor: pointer;
 }
 
 @media screen and (min-width: 1024px) {

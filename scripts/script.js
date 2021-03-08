@@ -57,24 +57,24 @@ const popupPicTitle = document.querySelector('.popup__pic-title');
 
 // создание html-кода для карточки с фотографией, добавление вперед всех карточек
 function createElement(el) {
-  let element = elementTemplate.querySelector('.element').cloneNode(true);
+  const element = elementTemplate.querySelector('.element').cloneNode(true);
   element.querySelector('.element__img').src = el.link;
   element.querySelector('.element__img').alt = el.name;
   element.querySelector('.element__title').textContent = el.name;
   elements.prepend(element);
 
   // кнопка и событие для добавления/удаления лайка на фото
-  let likeButton = element.querySelector('.element__like');
+  const likeButton = element.querySelector('.element__like');
   likeButton.addEventListener('click', like);
 
   // кнопка и событие удаления карточки с фотографией
-  let deleteButton = element.querySelector('.element__bin');
+  const deleteButton = element.querySelector('.element__bin');
   deleteButton.addEventListener('click', function() {
     element.remove();
   });
 
   // кнопка для открытия фотографии на всё окно
-  let showButton = element.querySelector('.element__show-img');
+  const showButton = element.querySelector('.element__show-img');
   showButton.addEventListener('click', function() {showPicture(el);});
 }
 

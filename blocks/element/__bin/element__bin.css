@@ -3,7 +3,6 @@
   background-repeat: no-repeat;
   background-size: contain;
   background-color: transparent;
-  border: 0;
   width: 20px;
   height: 20px;
   position: absolute;
@@ -12,6 +11,5 @@
 }
 
 .element__bin:hover {
-  cursor: pointer;
   opacity: 0.6;
 }

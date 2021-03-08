@@ -1,6 +1,5 @@
 .popup__save {
   display: block;
-  border: none;
   border-radius: 2px;
   padding: 14px 0 14px 0;
   font-size: 14px;
@@ -15,7 +14,6 @@
 }
 
 .popup__save:hover {
-  cursor: pointer;
   opacity: 0.8;
 }
 
