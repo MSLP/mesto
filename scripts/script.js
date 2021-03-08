@@ -26,41 +26,10 @@ const initialElements = [
   }
 ]
 
-// создание html-кода для карточки с фотографией, добавление вперед всех карточек
-function createElement(el) {
-  let element = elementTemplate.querySelector('.element').cloneNode(true);
-  element.querySelector('.element__img').src = el.link;
-  element.querySelector('.element__img').alt = el.name;
-  element.querySelector('.element__title').textContent = el.name;
-  elements.prepend(element);
-
-  // кнопка и событие для добавления/удаления лайка на фото
-  let likeButton = element.querySelector('.element__like');
-  likeButton.addEventListener('click', function() {
-    likeButton.classList.toggle('element__like_active');
-  });
-
-  // кнопка и событие удаления карточки с фотографией
-  let deleteButton = element.querySelector('.element__bin');
-  deleteButton.addEventListener('click', function() {
-    element.remove();
-  });
-
-  // кнопка для открытия фотографии на всё окно
-  let showButton = element.querySelector('.element__show-img');
-  showButton.addEventListener('click', function() {
-    popupPic.src = el.link;
-    popupPic.alt = el.name;
-    popupPicTitle.textContent = el.name;
-    showPopup(popupShowPicture);
-  });
-}
-
 // отображение начальных карточек с фотографиями на странице
 const elements = document.querySelector('.elements');
 const elementTemplate = document.querySelector('#element').content;
 initialElements.forEach(el => createElement(el));
-
 
 // переменные для работы с окном редактирования профиля
 const editButton = document.querySelector('.profile__edit-button');
@@ -85,6 +54,29 @@ const popupShowPicture = document.querySelector('.popup__show-picture');
 const showCloseButton = document.querySelector('.popup__close_show-picture');
 const popupPic = document.querySelector('.popup__picture');
 const popupPicTitle = document.querySelector('.popup__pic-title');
+
+// создание html-кода для карточки с фотографией, добавление вперед всех карточек
+function createElement(el) {
+  let element = elementTemplate.querySelector('.element').cloneNode(true);
+  element.querySelector('.element__img').src = el.link;
+  element.querySelector('.element__img').alt = el.name;
+  element.querySelector('.element__title').textContent = el.name;
+  elements.prepend(element);
+
+  // кнопка и событие для добавления/удаления лайка на фото
+  let likeButton = element.querySelector('.element__like');
+  likeButton.addEventListener('click', like);
+
+  // кнопка и событие удаления карточки с фотографией
+  let deleteButton = element.querySelector('.element__bin');
+  deleteButton.addEventListener('click', function() {
+    element.remove();
+  });
+
+  // кнопка для открытия фотографии на всё окно
+  let showButton = element.querySelector('.element__show-img');
+  showButton.addEventListener('click', function() {showPicture(el);});
+}
 
 // открытие всплывающего окна
 function showPopup(popupName) {
@@ -124,6 +116,19 @@ function saveAddPopup(evt) {
   }
   createElement(newPhoto);
   closePopup(popupAddPicture);
+}
+
+// поставить/убрать лайк
+function like (evt) {
+  evt.target.classList.toggle('element__like_active');
+}
+
+// отображение окна увеличенной фотографии
+function showPicture(el) {
+  popupPic.src = el.link;
+  popupPic.alt = el.name;
+  popupPicTitle.textContent = el.name;
+  showPopup(popupShowPicture);
 }
 
 editButton.addEventListener('click', function() {showPopup(popupEditProfile)});
