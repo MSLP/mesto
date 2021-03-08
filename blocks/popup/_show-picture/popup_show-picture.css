@@ -1,4 +1,4 @@
-.popup__show-picture {
+.popup_show-picture {
   visibility: hidden;
   display: flex;
   justify-content: space-around;

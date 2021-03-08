@@ -33,7 +33,7 @@ initialElements.forEach(el => createElement(el));
 
 // переменные для работы с окном редактирования профиля
 const editButton = document.querySelector('.profile__edit-button');
-const popupEditProfile = document.querySelector('.popup__edit-profile');
+const popupEditProfile = document.querySelector('.popup_edit-profile');
 const inputProfileName = document.querySelector('.popup__input_profile-name');
 const inputDescription = document.querySelector('.popup__input_profile-description');
 const profileName = document.querySelector('.profile__name');
@@ -43,14 +43,14 @@ const editForm = document.querySelector('.popup__edit-form');
 
 // переменные для работы с окном добавления новой фотографии
 const addButton = document.querySelector('.profile__add-button');
-const popupAddPicture = document.querySelector('.popup__add-picture');
+const popupAddPicture = document.querySelector('.popup_add-picture');
 const inputPhotoName = document.querySelector('.popup__input_photo-name');
 const inputLink = document.querySelector('.popup__input_photo-link');
 const addCloseButton = document.querySelector('.popup__close_add-picture');
 const addForm = document.querySelector('.popup__add-form');
 
 // переменные для работы с окном с фотографией
-const popupShowPicture = document.querySelector('.popup__show-picture');
+const popupShowPicture = document.querySelector('.popup_show-picture');
 const showCloseButton = document.querySelector('.popup__close_show-picture');
 const popupPic = document.querySelector('.popup__picture');
 const popupPicTitle = document.querySelector('.popup__pic-title');

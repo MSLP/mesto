@@ -30,9 +30,9 @@
 @import url(../blocks/footer/__copyrigth/footer__copyright.css);
 
 @import url(../blocks/popup/popup.css);
-@import url(../blocks/popup/__edit-profile/popup__edit-profile.css);
-@import url(../blocks/popup/__add-picture/popup__add-picture.css);
-@import url(../blocks/popup/__show-picture/popup__show-picture.css);
+@import url(../blocks/popup/_edit-profile/popup_edit-profile.css);
+@import url(../blocks/popup/_add-picture/popup_add-picture.css);
+@import url(../blocks/popup/_show-picture/popup_show-picture.css);
 @import url(../blocks/popup/_opened/popup_opened.css);
 @import url(../blocks/popup/__container/popup__container.css);
 @import url(../blocks/popup/__close/popup__close.css);
