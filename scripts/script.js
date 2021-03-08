@@ -78,6 +78,12 @@ function showPopup(popupName) {
     inputProfileName.value = profileName.textContent;
     inputDescription.value = profileDescription.textContent;
   }
+
+  //обнуление полей, если это окно добавления нового фото
+  if (popupName === popupAddPicture) {
+    inputPhotoName.value = "";
+    inputLink.value = "";
+  }
   popupName.classList.add('popup_opened');
 }
 
