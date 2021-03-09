@@ -58,9 +58,11 @@ const popupPicTitle = document.querySelector('.popup__pic-title');
 // создание html-кода для карточки с фотографией, добавление вперед всех карточек
 function createElement(el) {
   const element = elementTemplate.querySelector('.element').cloneNode(true);
-  element.querySelector('.element__img').src = el.link;
-  element.querySelector('.element__img').alt = el.name;
-  element.querySelector('.element__title').textContent = el.name;
+  const elementImg = element.querySelector('.element__img');
+  const elementTitle = element.querySelector('.element__title');
+  elementImg.src = el.link;
+  elementImg.alt = el.name;
+  elementTitle.textContent = el.name;
   elements.prepend(element);
 
   // кнопка и событие для добавления/удаления лайка на фото
@@ -80,23 +82,26 @@ function createElement(el) {
 
 // открытие всплывающего окна
 function showPopup(popupName) {
-  //добавление имени и описания в поля, если это окно редактирования профиля
-  if (popupName === popupEditProfile) {
-    inputProfileName.value = profileName.textContent;
-    inputDescription.value = profileDescription.textContent;
-  }
-
-  //обнуление полей, если это окно добавления нового фото
-  if (popupName === popupAddPicture) {
-    inputPhotoName.value = "";
-    inputLink.value = "";
-  }
   popupName.classList.add('popup_opened');
 }
 
+//добавление имени и описания в поля окна редактирования профиля
+function showEditPopup() {
+  inputProfileName.value = profileName.textContent;
+  inputDescription.value = profileDescription.textContent;
+  showPopup(popupEditProfile);
+}
+
+//обнуление полей окна добавления нового фото
+function showAddPopup() {
+  inputPhotoName.value = "";
+  inputLink.value = "";
+  showPopup(popupAddPicture);
+}
+
 // закрытие всплывающего окна
-function closePopup(popupName) {
-  popupName.classList.remove('popup_opened');
+function closePopup(popup) {
+  popup.classList.remove('popup_opened');
 }
 
 // сохранение формы редактирования профиля
@@ -110,7 +115,7 @@ function saveEditPopup(evt) {
 // сохранение формы добавления новой фотографии
 function saveAddPopup(evt) {
   evt.preventDefault();
-  let newPhoto = {
+  const newPhoto = {
     name: inputPhotoName.value,
     link: inputLink.value
   }
@@ -131,8 +136,8 @@ function showPicture(el) {
   showPopup(popupShowPicture);
 }
 
-editButton.addEventListener('click', function() {showPopup(popupEditProfile)});
-addButton.addEventListener('click', function() {showPopup(popupAddPicture)});
+editButton.addEventListener('click', showEditPopup);
+addButton.addEventListener('click', showAddPopup);
 editCloseButton.addEventListener('click', function() {closePopup(popupEditProfile)});
 addCloseButton.addEventListener('click', function() {closePopup(popupAddPicture)});
 showCloseButton.addEventListener('click', function() {closePopup(popupShowPicture)});
