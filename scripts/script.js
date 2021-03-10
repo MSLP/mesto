@@ -62,7 +62,6 @@ function createElement(el) {
   elementImg.src = el.link;
   elementImg.alt = el.name;
   elementTitle.textContent = el.name;
-  addElement(element);
 
   // кнопка и событие для добавления/удаления лайка на фото
   const likeButton = element.querySelector('.element__like');
@@ -77,11 +76,13 @@ function createElement(el) {
   // кнопка для открытия фотографии на всё окно
   const showButton = element.querySelector('.element__show-img');
   showButton.addEventListener('click', function() {showPicture(el);});
+
+  return element;
 }
 
 // добавление нового элемента с фото на страницу, вперед предыдущих
-function addElement(element) {
-  elements.prepend(element);
+function addElement(el) {
+  elements.prepend(createElement(el));
 }
 
 // открытие всплывающего окна
@@ -123,7 +124,7 @@ function saveAddPopup(evt) {
     name: inputPhotoName.value,
     link: inputLink.value
   }
-  createElement(newPhoto);
+  addElement(newPhoto);
   closePopup(popupAddPicture);
 }
 
@@ -141,7 +142,7 @@ function showPicture(el) {
 }
 
 // отображение изначально имеющихся фото элементов
-initialElements.forEach(el => createElement(el));
+initialElements.forEach(el => addElement(el));
 
 editButton.addEventListener('click', showEditPopup);
 addButton.addEventListener('click', showAddPopup);
