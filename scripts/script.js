@@ -26,10 +26,9 @@ const initialElements = [
   }
 ]
 
-// отображение начальных карточек с фотографиями на странице
+// переменные для создания элементов с фотографиями
 const elements = document.querySelector('.elements');
 const elementTemplate = document.querySelector('#element').content;
-initialElements.forEach(el => createElement(el));
 
 // переменные для работы с окном редактирования профиля
 const editButton = document.querySelector('.profile__edit-button');
@@ -55,7 +54,7 @@ const showCloseButton = document.querySelector('.popup__close_show-picture');
 const popupPic = document.querySelector('.popup__picture');
 const popupPicTitle = document.querySelector('.popup__pic-title');
 
-// создание html-кода для карточки с фотографией, добавление вперед всех карточек
+// создание html-кода для элемента с фотографией
 function createElement(el) {
   const element = elementTemplate.querySelector('.element').cloneNode(true);
   const elementImg = element.querySelector('.element__img');
@@ -63,7 +62,7 @@ function createElement(el) {
   elementImg.src = el.link;
   elementImg.alt = el.name;
   elementTitle.textContent = el.name;
-  elements.prepend(element);
+  addElement(element);
 
   // кнопка и событие для добавления/удаления лайка на фото
   const likeButton = element.querySelector('.element__like');
@@ -80,9 +79,14 @@ function createElement(el) {
   showButton.addEventListener('click', function() {showPicture(el);});
 }
 
+// добавление нового элемента с фото на страницу, вперед предыдущих
+function addElement(element) {
+  elements.prepend(element);
+}
+
 // открытие всплывающего окна
-function showPopup(popupName) {
-  popupName.classList.add('popup_opened');
+function showPopup(popup) {
+  popup.classList.add('popup_opened');
 }
 
 //добавление имени и описания в поля окна редактирования профиля
@@ -135,6 +139,9 @@ function showPicture(el) {
   popupPicTitle.textContent = el.name;
   showPopup(popupShowPicture);
 }
+
+// отображение изначально имеющихся фото элементов
+initialElements.forEach(el => createElement(el));
 
 editButton.addEventListener('click', showEditPopup);
 addButton.addEventListener('click', showAddPopup);
