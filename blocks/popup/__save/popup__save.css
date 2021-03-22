@@ -10,7 +10,7 @@
   background-color: #000;
   width: 85%;
   margin: 0 auto;
-  margin-top: 45px;
+  margin-top: 15px;
 }
 
 .popup__save:hover {
@@ -19,7 +19,7 @@
 
 @media screen and (min-width: 768px) {
   .popup__save {
-    margin-top: 48px;
+    margin-top: 18px;
     width: 80%;
     font-size: 18px;
   }

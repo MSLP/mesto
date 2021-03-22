@@ -47,6 +47,7 @@ const inputPhotoName = document.querySelector('.popup__input_photo-name');
 const inputLink = document.querySelector('.popup__input_photo-link');
 const addCloseButton = document.querySelector('.popup__close_add-picture');
 const addForm = document.querySelector('.popup__add-form');
+const saveButton = addForm.querySelector('.popup__save');
 
 // переменные для работы с окном с фотографией
 const popupShowPicture = document.querySelector('.popup_show-picture');
@@ -101,6 +102,8 @@ function showEditPopup() {
 function showAddPopup() {
   inputPhotoName.value = "";
   inputLink.value = "";
+  saveButton.classList.add('popup__save_disable');
+  saveButton.setAttribute('disabled', true);
   showPopup(popupAddPicture);
 }
 
@@ -110,16 +113,14 @@ function closePopup(popup) {
 }
 
 // сохранение формы редактирования профиля
-function saveEditPopup(evt) {
-  evt.preventDefault();
+function saveEditPopup() {
   profileName.textContent = inputProfileName.value;
   profileDescription.textContent = inputDescription.value;
   closePopup(popupEditProfile);
 }
 
 // сохранение формы добавления новой фотографии
-function saveAddPopup(evt) {
-  evt.preventDefault();
+function saveAddPopup() {
   const newPhoto = {
     name: inputPhotoName.value,
     link: inputLink.value
