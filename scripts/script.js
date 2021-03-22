@@ -26,6 +26,9 @@ const initialElements = [
   }
 ]
 
+// список всех попапов
+const popupList = Array.from(document.querySelectorAll('.popup'));
+
 // переменные для создания элементов с фотографиями
 const elements = document.querySelector('.elements');
 const elementTemplate = document.querySelector('#element').content;
@@ -152,3 +155,16 @@ addCloseButton.addEventListener('click', function() {closePopup(popupAddPicture)
 showCloseButton.addEventListener('click', function() {closePopup(popupShowPicture)});
 editForm.addEventListener('submit', saveEditPopup);
 addForm.addEventListener('submit', saveAddPopup);
+
+// закрытие любого попапа по оверлэю или кнопке Esc
+popupList.forEach(popup => {
+  popup.addEventListener('click', function (evt) {
+    if (evt.target == popup)
+      closePopup(popup);
+  });
+
+  document.addEventListener('keydown', function (evt) {
+    if (evt.key == 'Escape')
+      closePopup(popup);
+  });
+});
