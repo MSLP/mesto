@@ -57,10 +57,15 @@ const toggleButtonState = (inputList, button) => {
   }
 };
 
-// для каждой формы вызываем функцию, устанавливающую слушатели
-formList.forEach(formElement => {
-  formElement.addEventListener('submit', (evt) => {
-    evt.preventDefault();
-  })
-  setInputListeners(formElement);
-});
+// функция, устанавливающую слушатели для всех форм
+const enableValidation = (formList) => {
+  formList.forEach(formElement => {
+    formElement.addEventListener('submit', (evt) => {
+      evt.preventDefault();
+    })
+    setInputListeners(formElement);
+  });
+};
+
+// вызов функции, устанавливающей валидацию всех форм
+enableValidation(formList);
