@@ -64,7 +64,6 @@ function addElement(el) {
 
 // открытие всплывающего окна
 function showPopup(popup) {
-  deleteErrors();
   popup.classList.add('popup_opened');
   popupSetListeners(popup);
 }
@@ -73,6 +72,7 @@ function showPopup(popup) {
 function showEditPopup() {
   inputProfileName.value = profileName.textContent;
   inputDescription.value = profileDescription.textContent;
+  deleteErrors();
   showPopup(popupEditProfile);
 }
 
@@ -82,6 +82,7 @@ function showAddPopup() {
   inputLink.value = "";
   saveButton.classList.add('popup__save_disable');
   saveButton.setAttribute('disabled', true);
+  deleteErrors();
   showPopup(popupAddPicture);
 }
 
