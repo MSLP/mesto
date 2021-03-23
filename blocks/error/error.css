@@ -1,0 +1,16 @@
+.error {
+  min-height: 30px;
+  color: #ff0000;
+  font-size: 12px;
+  line-height: 1.2;
+  display: block;
+  visibility: hidden;
+  width: 85%;
+  margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+  .error {
+    width: 80%;
+  }
+}
