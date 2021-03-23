@@ -1,4 +1,4 @@
-// объект содержащий класс форм
+// объект содержащий классы, необходимые в валидации форм
 const object = {
   formSelector: '.popup__form',
   inputSelector: '.popup__input',

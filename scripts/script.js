@@ -1,34 +1,3 @@
-//массив данных об изначальном фото-контенте, расположение фото снизу вверх
-const initialElements = [
-  {
-    name: 'Карачаево-Черкесия',
-    link: './images/karachaevo.jpg'
-  },
-  {
-    name: 'Эльбрус',
-    link: './images/elbrus.jpg'
-  },
-  {
-    name: 'Домбай',
-    link: './images/dombay.jpg'
-  },
-  {
-    name: 'Карачаево-Черкесия',
-    link: './images/karachaevo.jpg'
-  },
-  {
-    name: 'Эльбрус',
-    link: './images/elbrus.jpg'
-  },
-  {
-    name: 'Домбай',
-    link: './images/dombay.jpg'
-  }
-]
-
-// список всех попапов
-const popupList = Array.from(document.querySelectorAll('.popup'));
-
 // списоки всех span и input для сброса ошибок
 const errorList = Array.from(document.querySelectorAll('.error'));
 const inputList = Array.from(document.querySelectorAll('.popup__input'));
@@ -97,6 +66,7 @@ function addElement(el) {
 function showPopup(popup) {
   deleteErrors();
   popup.classList.add('popup_opened');
+  popupSetListeners(popup);
 }
 
 //добавление имени и описания в поля окна редактирования профиля
@@ -118,6 +88,7 @@ function showAddPopup() {
 // закрытие всплывающего окна
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
+  popupRemoveListeners(popup);
 }
 
 // сохранение формы редактирования профиля
@@ -160,6 +131,28 @@ function deleteErrors() {
   })
 }
 
+// закрытие любого попапа по оверлэю или кнопке Esc
+function callClosePopup (evt) {
+  if (evt.key == 'Escape') {
+    const popup = document.querySelector('.popup_opened');
+    closePopup(popup);
+  }
+  if (evt.target.classList.contains('popup'))
+    closePopup(evt.target);
+}
+
+// навешивание слушателей закрытия попапа
+function popupSetListeners (popup) {
+  popup.addEventListener('click', callClosePopup);
+  document.addEventListener('keydown', callClosePopup);
+}
+
+// снятие слушателей закрытия попапа
+function popupRemoveListeners (popup) {
+  popup.removeEventListener('click', callClosePopup);
+  document.removeEventListener('keydown', callClosePopup);
+}
+
 // отображение изначально имеющихся фото элементов
 initialElements.forEach(el => addElement(el));
 
@@ -170,16 +163,3 @@ addCloseButton.addEventListener('click', function() {closePopup(popupAddPicture)
 showCloseButton.addEventListener('click', function() {closePopup(popupShowPicture)});
 editForm.addEventListener('submit', saveEditPopup);
 addForm.addEventListener('submit', saveAddPopup);
-
-// закрытие любого попапа по оверлэю или кнопке Esc
-popupList.forEach(popup => {
-  popup.addEventListener('click', function (evt) {
-    if (evt.target == popup)
-      closePopup(popup);
-  });
-
-  document.addEventListener('keydown', function (evt) {
-    if (evt.key == 'Escape')
-      closePopup(popup);
-  });
-});
