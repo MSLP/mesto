@@ -29,6 +29,10 @@ const initialElements = [
 // список всех попапов
 const popupList = Array.from(document.querySelectorAll('.popup'));
 
+// списоки всех span и input для сброса ошибок
+const errorList = Array.from(document.querySelectorAll('.error'));
+const inputList = Array.from(document.querySelectorAll('.popup__input'));
+
 // переменные для создания элементов с фотографиями
 const elements = document.querySelector('.elements');
 const elementTemplate = document.querySelector('#element').content;
@@ -91,6 +95,7 @@ function addElement(el) {
 
 // открытие всплывающего окна
 function showPopup(popup) {
+  deleteErrors();
   popup.classList.add('popup_opened');
 }
 
@@ -143,6 +148,16 @@ function showPicture(el) {
   popupPic.alt = el.name;
   popupPicTitle.textContent = el.name;
   showPopup(popupShowPicture);
+}
+
+// сброс всех ошибок полей, будет вызываться перед открытием попапа
+function deleteErrors() {
+  errorList.forEach(error => {
+    error.classList.remove('error_active');
+  });
+  inputList.forEach(input => {
+    input.classList.remove('popup__input_error');
+  })
 }
 
 // отображение изначально имеющихся фото элементов
