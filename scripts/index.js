@@ -33,6 +33,10 @@ const showCloseButton = document.querySelector('.popup__close_show-picture');
 const popupPic = document.querySelector('.popup__picture');
 const popupPicTitle = document.querySelector('.popup__pic-title');
 
+
+//переменная для включения валидации форм
+const formList = Array.from(document.querySelectorAll('.popup__form'));
+
 // добавление нового элемента с фото на страницу, вперед предыдущих
 function addElement(card) {
   elements.prepend(card.createCard());
@@ -56,8 +60,8 @@ function showEditPopup() {
 function showAddPopup() {
   inputPhotoName.value = "";
   inputLink.value = "";
-  // saveButton.classList.add('popup__save_disable');
-  // saveButton.setAttribute('disabled', true);
+  saveButton.classList.add('popup__save_disable');
+  saveButton.setAttribute('disabled', true);
   deleteErrors();
   showPopup(popupAddPicture);
 }
@@ -76,8 +80,7 @@ function saveEditPopup() {
 }
 
 // сохранение формы добавления новой фотографии
-function saveAddPopup(evt) {
-  evt.preventDefault();
+function saveAddPopup() {
   const newPhoto = {
     name: inputPhotoName.value,
     link: inputLink.value
@@ -128,6 +131,20 @@ function popupRemoveListeners (popup) {
 
 // отображение изначально имеющихся фото элементов
 initialElements.forEach(el => addElement(new Card(el, 'element')));
+
+//включение валидации
+formList.forEach(form => {
+  form.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+  });
+  const formValidator = new FormValidator({
+    inputSelector: '.popup__input',
+    buttonSelector: '.popup__save',
+    errorActive: 'error_active',
+    inputError: 'popup__input_error',
+    saveDisable: 'popup__save_disable'}, form);
+  formValidator.enableValidation();
+});
 
 editButton.addEventListener('click', showEditPopup);
 addButton.addEventListener('click', showAddPopup);
