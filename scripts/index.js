@@ -1,10 +1,12 @@
+import Card from './Card.js';
+import FormValidator from './FormValidator.js';
+
 // списоки всех span и input для сброса ошибок
 const errorList = Array.from(document.querySelectorAll('.error'));
 const inputList = Array.from(document.querySelectorAll('.popup__input'));
 
-// переменные для создания элементов с фотографиями
+// переменная для добавления карточек с фотографиями на страницу
 const elements = document.querySelector('.elements');
-const elementTemplate = document.querySelector('#element').content;
 
 // переменные для работы с окном редактирования профиля
 const editButton = document.querySelector('.profile__edit-button');
@@ -31,35 +33,9 @@ const showCloseButton = document.querySelector('.popup__close_show-picture');
 const popupPic = document.querySelector('.popup__picture');
 const popupPicTitle = document.querySelector('.popup__pic-title');
 
-// создание html-кода для элемента с фотографией
-function createElement(el) {
-  const element = elementTemplate.querySelector('.element').cloneNode(true);
-  const elementImg = element.querySelector('.element__img');
-  const elementTitle = element.querySelector('.element__title');
-  elementImg.src = el.link;
-  elementImg.alt = el.name;
-  elementTitle.textContent = el.name;
-
-  // кнопка и событие для добавления/удаления лайка на фото
-  const likeButton = element.querySelector('.element__like');
-  likeButton.addEventListener('click', like);
-
-  // кнопка и событие удаления карточки с фотографией
-  const deleteButton = element.querySelector('.element__bin');
-  deleteButton.addEventListener('click', function() {
-    element.remove();
-  });
-
-  // кнопка для открытия фотографии на всё окно
-  const showButton = element.querySelector('.element__show-img');
-  showButton.addEventListener('click', function() {showPicture(el);});
-
-  return element;
-}
-
 // добавление нового элемента с фото на страницу, вперед предыдущих
-function addElement(el) {
-  elements.prepend(createElement(el));
+function addElement(card) {
+  elements.prepend(card.createCard());
 }
 
 // открытие всплывающего окна
@@ -80,8 +56,8 @@ function showEditPopup() {
 function showAddPopup() {
   inputPhotoName.value = "";
   inputLink.value = "";
-  saveButton.classList.add('popup__save_disable');
-  saveButton.setAttribute('disabled', true);
+  // saveButton.classList.add('popup__save_disable');
+  // saveButton.setAttribute('disabled', true);
   deleteErrors();
   showPopup(popupAddPicture);
 }
@@ -100,25 +76,21 @@ function saveEditPopup() {
 }
 
 // сохранение формы добавления новой фотографии
-function saveAddPopup() {
+function saveAddPopup(evt) {
+  evt.preventDefault();
   const newPhoto = {
     name: inputPhotoName.value,
     link: inputLink.value
   }
-  addElement(newPhoto);
+  addElement(new Card(newPhoto, 'element'));
   closePopup(popupAddPicture);
 }
 
-// поставить/убрать лайк
-function like (evt) {
-  evt.target.classList.toggle('element__like_active');
-}
-
 // отображение окна увеличенной фотографии
-function showPicture(el) {
-  popupPic.src = el.link;
-  popupPic.alt = el.name;
-  popupPicTitle.textContent = el.name;
+export function showPicture(name, link) {
+  popupPic.src = link;
+  popupPic.alt = name;
+  popupPicTitle.textContent = name;
   showPopup(popupShowPicture);
 }
 
@@ -155,7 +127,7 @@ function popupRemoveListeners (popup) {
 }
 
 // отображение изначально имеющихся фото элементов
-initialElements.forEach(el => addElement(el));
+initialElements.forEach(el => addElement(new Card(el, 'element')));
 
 editButton.addEventListener('click', showEditPopup);
 addButton.addEventListener('click', showAddPopup);
