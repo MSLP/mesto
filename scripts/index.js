@@ -1,7 +1,6 @@
 import Card from './Card.js';
 import FormValidator from './FormValidator.js';
 
-
 // объект с селекторами попапов
 const obj = {
   inputSelector: '.popup__input',
@@ -10,10 +9,6 @@ const obj = {
   inputError: 'popup__input_error',
   saveDisable: 'popup__save_disable'
 }
-
-// списоки всех span и input для сброса ошибок
-const errorList = Array.from(document.querySelectorAll('.error'));
-const inputList = Array.from(document.querySelectorAll('.popup__input'));
 
 // переменная для добавления карточек с фотографиями на страницу
 const elements = document.querySelector('.elements');
