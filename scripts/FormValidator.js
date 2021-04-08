@@ -39,8 +39,7 @@ export default class FormValidator {
   // меняем состояние кнопки в зависимости от валидности формы
   _toggleButtonState(inputList, button) {
     if (this._hasInvalidInput(inputList)) {
-      button.classList.add(this._config.saveDisable);
-      button.setAttribute('disabled', true);
+      this.disableSaveButton(button);
     }
     else {
       button.classList.remove(this._config.saveDisable);
@@ -60,7 +59,13 @@ export default class FormValidator {
     });
   }
 
+  // запускаем валидацию формы
   enableValidation() {
     this._setInputListeners();
+  }
+
+  disableSaveButton(button) {
+    button.classList.add(this._config.saveDisable);
+    button.setAttribute('disabled', true);
   }
 }
