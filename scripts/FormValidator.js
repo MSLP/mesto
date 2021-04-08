@@ -2,9 +2,11 @@ export default class FormValidator {
   constructor(config, form) {
     this._config = config;
     this._form = form;
+    this._inputList = Array.from(this._form.querySelectorAll(this._config.inputSelector));
+    this._buttonElement = this._form.querySelector(this._config.buttonSelector);
   }
 
-  // показываем сообщение об ошибке, если поле не валидно
+  // показ сообщения об ошибке, если поле не валидно
   _showError(input) {
     const error = this._form.querySelector(`#${input.name}-error`);
     error.textContent = input.validationMessage;
@@ -12,7 +14,7 @@ export default class FormValidator {
     input.classList.add(this._config.inputError);
   }
 
-  // скрываем сообщение об ошибке, если поле ввода валидно
+  // скрытие сообщение об ошибке, если поле ввода валидно
   _hideError(input) {
     const error = this._form.querySelector(`#${input.name}-error`);
     error.textContent = "";
@@ -30,42 +32,55 @@ export default class FormValidator {
     }
   }
 
-  // проверяем есть ли хотя бы одно не валидное поле в форме
+  // проверка: есть ли хотя бы одно не валидное поле в форме
   // возращает true, если есть
-  _hasInvalidInput(inputList) {
-    return inputList.some(input => !input.validity.valid);
+  _hasInvalidInput() {
+    return this._inputList.some(input => !input.validity.valid);
   }
 
-  // меняем состояние кнопки в зависимости от валидности формы
-  _toggleButtonState(inputList, button) {
-    if (this._hasInvalidInput(inputList)) {
-      this.disableSaveButton(button);
+  // изменение состояния кнопки в зависимости от валидности формы
+  _toggleButtonState() {
+    if (this._hasInvalidInput()) {
+      this.disableSaveButton();
     }
     else {
-      button.classList.remove(this._config.saveDisable);
-      button.removeAttribute('disabled');
+      this._buttonElement.classList.remove(this._config.saveDisable);
+      this._buttonElement.removeAttribute('disabled');
     }
   }
 
-  // устанавливаем слушатели на поля ввода, чтобы поверять их на валидность
+  // установка слушателей на поля ввода, чтобы поверять их на валидность
   _setInputListeners() {
-    const inputList = Array.from(this._form.querySelectorAll(this._config.inputSelector));
-    const buttonElement = this._form.querySelector(this._config.buttonSelector);
-    inputList.forEach(input => {
+    this._inputList.forEach(input => {
       input.addEventListener('input', () => {
         this._checkInput(input);
-        this._toggleButtonState(inputList, buttonElement);
+        this._toggleButtonState();
       });
     });
   }
 
-  // запускаем валидацию формы
+  // запуск валидации формы
   enableValidation() {
+    this._form.addEventListener('submit', (evt) => {
+      evt.preventDefault();
+    });
     this._setInputListeners();
   }
 
-  disableSaveButton(button) {
-    button.classList.add(this._config.saveDisable);
-    button.setAttribute('disabled', true);
+  // переключение кнопки сохранить в неактивное состояние
+  disableSaveButton() {
+    this._buttonElement.classList.add(this._config.saveDisable);
+    this._buttonElement.setAttribute('disabled', true);
+  }
+
+  // сброс всех ошибок полей, будет вызываться перед открытием попапа
+  deleteErrors() {
+    const errorList = Array.from(document.querySelectorAll('.error'));
+    errorList.forEach(error => {
+      error.classList.remove('error_active');
+    });
+    this._inputList.forEach(input => {
+      input.classList.remove('popup__input_error');
+    })
   }
 }

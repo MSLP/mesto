@@ -7,7 +7,7 @@ export default class Card {
     this._selector = selector;
   }
 
-  // получаем разметку для будущей карточки
+  // получение разметки для будущей карточки
   _getTemplate() {
     const elementTemplate = document.querySelector(`#${this._selector}`).content;
     const cardElement = elementTemplate
@@ -35,8 +35,8 @@ export default class Card {
     });
   }
 
-  // заполняем разметку карточки данными
-  createCard() {
+  // заполняется разметка карточки данными
+  generateCard() {
     this._card = this._getTemplate();
     this._card.querySelector(`.${this._selector}__img`).src = this._link;
     this._card.querySelector(`.${this._selector}__img`).alt = this._name;

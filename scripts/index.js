@@ -1,6 +1,8 @@
 import Card from './Card.js';
 import FormValidator from './FormValidator.js';
 
+
+// объект с селекторами попапов
 const obj = {
   inputSelector: '.popup__input',
   buttonSelector: '.popup__save',
@@ -43,13 +45,15 @@ const showCloseButton = document.querySelector('.popup__close_show-picture');
 const popupPic = document.querySelector('.popup__picture');
 const popupPicTitle = document.querySelector('.popup__pic-title');
 
-
-//переменная для включения валидации форм
-const formList = Array.from(document.querySelectorAll('.popup__form'));
-
 // добавление нового элемента с фото на страницу, вперед предыдущих
 function addElement(card) {
-  elements.prepend(card.createCard());
+  elements.prepend(card);
+}
+
+// создание карточки
+function createCard(item) {
+  const card = new Card(item, 'element');
+  return card.generateCard();
 }
 
 // открытие всплывающего окна
@@ -62,7 +66,7 @@ function showPopup(popup) {
 function showEditPopup() {
   inputProfileName.value = profileName.textContent;
   inputDescription.value = profileDescription.textContent;
-  // deleteErrors();
+  editValidator.deleteErrors();
   showPopup(popupEditProfile);
 }
 
@@ -71,7 +75,7 @@ function showAddPopup() {
   inputPhotoName.value = "";
   inputLink.value = "";
   addValidator.disableSaveButton(saveButton);
-  // deleteErrors();
+  addValidator.deleteErrors();
   showPopup(popupAddPicture);
 }
 
@@ -94,7 +98,7 @@ function saveAddPopup() {
     name: inputPhotoName.value,
     link: inputLink.value
   }
-  addElement(new Card(newPhoto, 'element'));
+  addElement(createCard(newPhoto));
   closePopup(popupAddPicture);
 }
 
@@ -106,30 +110,24 @@ export function showPicture(name, link) {
   showPopup(popupShowPicture);
 }
 
-// сброс всех ошибок полей, будет вызываться перед открытием попапа
-function deleteErrors() {
-  errorList.forEach(error => {
-    error.classList.remove('error_active');
-  });
-  inputList.forEach(input => {
-    input.classList.remove('popup__input_error');
-  })
-}
-
-// закрытие любого попапа по оверлэю или кнопке Esc
-function callClosePopup (evt) {
+// закрытие любого попапа по кнопке Esc
+function escapeClosePopup(evt) {
   if (evt.key == 'Escape') {
     const popup = document.querySelector('.popup_opened');
     closePopup(popup);
   }
+}
+
+// закрытие любого попапа по оверлэю
+function overlayClosePopup (evt) {
   if (evt.target.classList.contains('popup'))
     closePopup(evt.target);
 }
 
 // навешивание слушателей закрытия попапа
 function popupSetListeners (popup) {
-  popup.addEventListener('click', callClosePopup);
-  document.addEventListener('keydown', callClosePopup);
+  popup.addEventListener('click', overlayClosePopup);
+  document.addEventListener('keydown', escapeClosePopup);
 }
 
 // снятие слушателей закрытия попапа
@@ -139,9 +137,9 @@ function popupRemoveListeners (popup) {
 }
 
 // отображение изначально имеющихся фото элементов
-initialElements.forEach(el => addElement(new Card(el, 'element')));
+initialElements.forEach(el => addElement(createCard(el)));
 
-//включение валидации форм
+// включение валидации форм
 addValidator.enableValidation();
 editValidator.enableValidation();
 
@@ -150,11 +148,5 @@ addButton.addEventListener('click', showAddPopup);
 editCloseButton.addEventListener('click', function() {closePopup(popupEditProfile)});
 addCloseButton.addEventListener('click', function() {closePopup(popupAddPicture)});
 showCloseButton.addEventListener('click', function() {closePopup(popupShowPicture)});
-editForm.addEventListener('submit', (evt) => {
-  evt.preventDefault();
-  saveEditPopup();
-});
-addForm.addEventListener('submit', (evt) => {
-  evt.preventDefault();
-  saveAddPopup();
-});
+editForm.addEventListener('submit', saveEditPopup);
+addForm.addEventListener('submit', saveAddPopup);
