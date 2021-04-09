@@ -127,8 +127,8 @@ function popupSetListeners (popup) {
 
 // снятие слушателей закрытия попапа
 function popupRemoveListeners (popup) {
-  popup.removeEventListener('click', callClosePopup);
-  document.removeEventListener('keydown', callClosePopup);
+  popup.removeEventListener('click', overlayClosePopup);
+  document.removeEventListener('keydown', escapeClosePopup);
 }
 
 // отображение изначально имеющихся фото элементов
