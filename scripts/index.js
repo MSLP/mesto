@@ -1,5 +1,7 @@
 import Card from './Card.js';
 import FormValidator from './FormValidator.js';
+import Section from './Section.js';
+import PopupWithForm from './PopupWithForm.js';
 
 // объект с селекторами попапов
 const obj = {
@@ -26,7 +28,7 @@ const editValidator = new FormValidator(obj, editForm);
 
 // переменные для работы с окном добавления новой фотографии
 const addButton = document.querySelector('.profile__add-button');
-const popupAddPicture = document.querySelector('.popup_add-picture');
+// const popupAddPicture = document.querySelector('.popup_add-picture');
 const inputPhotoName = document.querySelector('.popup__input_photo-name');
 const inputLink = document.querySelector('.popup__input_photo-link');
 const addCloseButton = document.querySelector('.popup__close_add-picture');
@@ -132,16 +134,40 @@ function popupRemoveListeners (popup) {
 }
 
 // отображение изначально имеющихся фото элементов
-initialElements.forEach(el => addElement(createCard(el)));
+const cardList = new Section({
+  items: initialElements,
+  renderer: (item) => {
+    const card = new Card(item, 'element');
+    cardList.addItem(card.generateCard());
+  }
+}, '.elements');
+
+cardList.renderItems();
 
 // включение валидации форм
 addValidator.enableValidation();
 editValidator.enableValidation();
 
 editButton.addEventListener('click', showEditPopup);
-addButton.addEventListener('click', showAddPopup);
+
 editCloseButton.addEventListener('click', function() {closePopup(popupEditProfile)});
-addCloseButton.addEventListener('click', function() {closePopup(popupAddPicture)});
+// addCloseButton.addEventListener('click', function() {closePopup(popupAddPicture)});
 showCloseButton.addEventListener('click', function() {closePopup(popupShowPicture)});
 editForm.addEventListener('submit', saveEditPopup);
-addForm.addEventListener('submit', saveAddPopup);
+// addForm.addEventListener('submit', saveAddPopup);
+
+const popupAddPicture = new PopupWithForm('.popup_add-picture', () => {
+  popupAddPicture._getInputValues();
+  const newPhoto = {
+    name: popupAddPicture._inputValues['photo-name'],
+    link: popupAddPicture._inputValues['photo-link']
+  }
+  cardList._renderer(newPhoto);
+  popupAddPicture.close();
+});
+popupAddPicture.setEventListeners();
+addButton.addEventListener('click', () => {
+  addValidator.disableSaveButton(saveButton);
+  addValidator.deleteErrors();
+  popupAddPicture.open();
+});
