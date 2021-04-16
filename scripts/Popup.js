@@ -1,3 +1,4 @@
+// класс всплывающего окна
 export default class Popup {
   constructor(popupSelector) {
     this._popup = document.querySelector(popupSelector);
@@ -24,10 +25,12 @@ export default class Popup {
     this._popup.addEventListener('click', (evt) => this._handleOverlayClose(evt));
   }
 
+  // открытие попапа
   open() {
     this._popup.classList.add('popup_opened');
   }
 
+  // закрытие попапа
   close() {
     this._popup.classList.remove('popup_opened');
   }

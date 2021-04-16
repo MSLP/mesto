@@ -1,3 +1,4 @@
+// класс карточки с фото
 export default class Card {
   constructor(element, selector, handleCardClick) {
     this._name = element.name;
