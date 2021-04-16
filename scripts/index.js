@@ -2,6 +2,7 @@ import Card from './Card.js';
 import FormValidator from './FormValidator.js';
 import Section from './Section.js';
 import PopupWithForm from './PopupWithForm.js';
+import PopupWithImage from './PopupWithImage.js';
 
 // объект с селекторами попапов
 const obj = {
@@ -12,8 +13,9 @@ const obj = {
   saveDisable: 'popup__save_disable'
 }
 
-// переменная для добавления карточек с фотографиями на страницу
-const elements = document.querySelector('.elements');
+// создание экземпляра попапа для отображения фотографии
+const popupWithImage = new PopupWithImage('.popup_show-picture');
+popupWithImage.setEventListeners();
 
 // переменные для работы с окном редактирования профиля
 const editButton = document.querySelector('.profile__edit-button');
@@ -43,15 +45,15 @@ const popupPic = document.querySelector('.popup__picture');
 const popupPicTitle = document.querySelector('.popup__pic-title');
 
 // добавление нового элемента с фото на страницу, вперед предыдущих
-function addElement(card) {
-  elements.prepend(card);
-}
+// function addElement(card) {
+//   elements.prepend(card);
+// }
 
 // создание карточки
-function createCard(item) {
-  const card = new Card(item, 'element');
-  return card.generateCard();
-}
+// function createCard(item) {
+//   const card = new Card(item, 'element');
+//   return card.generateCard();
+// }
 
 // открытие всплывающего окна
 function showPopup(popup) {
@@ -68,13 +70,13 @@ function showEditPopup() {
 }
 
 //обнуление полей окна добавления нового фото
-function showAddPopup() {
-  inputPhotoName.value = "";
-  inputLink.value = "";
-  addValidator.disableSaveButton(saveButton);
-  addValidator.deleteErrors();
-  showPopup(popupAddPicture);
-}
+// function showAddPopup() {
+//   inputPhotoName.value = "";
+//   inputLink.value = "";
+//   addValidator.disableSaveButton(saveButton);
+//   addValidator.deleteErrors();
+//   showPopup(popupAddPicture);
+// }
 
 // закрытие всплывающего окна
 function closePopup(popup) {
@@ -90,22 +92,14 @@ function saveEditPopup() {
 }
 
 // сохранение формы добавления новой фотографии
-function saveAddPopup() {
-  const newPhoto = {
-    name: inputPhotoName.value,
-    link: inputLink.value
-  }
-  addElement(createCard(newPhoto));
-  closePopup(popupAddPicture);
-}
-
-// отображение окна увеличенной фотографии
-export function showPicture(name, link) {
-  popupPic.src = link;
-  popupPic.alt = name;
-  popupPicTitle.textContent = name;
-  showPopup(popupShowPicture);
-}
+// function saveAddPopup() {
+//   const newPhoto = {
+//     name: inputPhotoName.value,
+//     link: inputLink.value
+//   }
+//   addElement(createCard(newPhoto));
+//   closePopup(popupAddPicture);
+// }
 
 // закрытие любого попапа по кнопке Esc
 function escapeClosePopup(evt) {
@@ -115,29 +109,20 @@ function escapeClosePopup(evt) {
   }
 }
 
-// закрытие любого попапа по оверлэю
-function overlayClosePopup (evt) {
-  if (evt.target.classList.contains('popup'))
-    closePopup(evt.target);
-}
 
 // навешивание слушателей закрытия попапа
 function popupSetListeners (popup) {
   popup.addEventListener('click', overlayClosePopup);
-  document.addEventListener('keydown', escapeClosePopup);
-}
-
-// снятие слушателей закрытия попапа
-function popupRemoveListeners (popup) {
-  popup.removeEventListener('click', overlayClosePopup);
-  document.removeEventListener('keydown', escapeClosePopup);
+  // document.addEventListener('keydown', escapeClosePopup);
 }
 
 // отображение изначально имеющихся фото элементов
 const cardList = new Section({
   items: initialElements,
   renderer: (item) => {
-    const card = new Card(item, 'element');
+    const card = new Card(item, 'element', () => {
+      popupWithImage.open(item.name, item.link);
+    });
     cardList.addItem(card.generateCard());
   }
 }, '.elements');
@@ -156,6 +141,7 @@ showCloseButton.addEventListener('click', function() {closePopup(popupShowPictur
 editForm.addEventListener('submit', saveEditPopup);
 // addForm.addEventListener('submit', saveAddPopup);
 
+// сохранение формы добавления новой фотографии
 const popupAddPicture = new PopupWithForm('.popup_add-picture', () => {
   popupAddPicture._getInputValues();
   const newPhoto = {

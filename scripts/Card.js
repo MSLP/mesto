@@ -1,10 +1,9 @@
-import {showPicture} from './index.js';
-
 export default class Card {
-  constructor(element, selector) {
+  constructor(element, selector, handleCardClick) {
     this._name = element.name;
     this._link = element.link;
     this._selector = selector;
+    this._handleCardClick = handleCardClick;
   }
 
   // получение разметки для будущей карточки
@@ -31,7 +30,7 @@ export default class Card {
     // кнопка для открытия фотографии на всё окно
     const showButton = this._card.querySelector(`.${this._selector}__show-img`);
     showButton.addEventListener('click', () => {
-      showPicture(this._name, this._link);
+      this._handleCardClick();
     });
   }
 
