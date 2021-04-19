@@ -1,0 +1,41 @@
+{
+  "name": "mesto",
+  "version": "1.0.0",
+  "description": "Профиль путешественника с фотографиями из любимых мест. Сайт адаптирован под мобильные и десктопные разрешения. Использован подход mobile-first. Страница имеет popup окна редактирования профиля, добавления новой карточки с фотографией, а так же просмотра фотографии в полном размере. Для форм popup`ов добавлена валидация. При написании кода применяются принципы ООП.",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack --mode production",
+    "dev": "webpack serve --mode development"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MSLP/mesto.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MSLP/mesto/issues"
+  },
+  "homepage": "https://github.com/MSLP/mesto#readme",
+  "devDependencies": {
+    "@babel/core": "^7.13.15",
+    "@babel/preset-env": "^7.13.15",
+    "autoprefixer": "^10.2.5",
+    "babel-loader": "^8.2.2",
+    "clean-webpack-plugin": "^4.0.0-alpha.0",
+    "css-loader": "^5.2.4",
+    "cssnano": "^5.0.1",
+    "file-loader": "^6.2.0",
+    "html-webpack-plugin": "^5.3.1",
+    "mini-css-extract-plugin": "^1.5.0",
+    "postcss-loader": "^5.2.0",
+    "webpack": "^5.33.2",
+    "webpack-cli": "^4.6.0",
+    "webpack-dev-server": "^3.11.2"
+  },
+  "dependencies": {
+    "core-js": "^3.10.2",
+    "rimraf": "^3.0.2"
+  }
+}

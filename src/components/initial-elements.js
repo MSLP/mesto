@@ -1,27 +1,33 @@
+import karachaevo from '../images/karachaevo.jpg';
+import elbrus from '../images/elbrus.jpg';
+import dombay from '../images/dombay.jpg';
+
+
+
 //массив данных об изначальном фото-контенте, расположение фото снизу вверх
-const initialElements = [
+export const initialElements = [
   {
     name: 'Карачаево-Черкесия',
-    link: './images/karachaevo.jpg'
+    link: karachaevo
   },
   {
     name: 'Эльбрус',
-    link: './images/elbrus.jpg'
+    link: elbrus
   },
   {
     name: 'Домбай',
-    link: './images/dombay.jpg'
+    link: dombay
   },
   {
     name: 'Карачаево-Черкесия',
-    link: './images/karachaevo.jpg'
+    link: karachaevo
   },
   {
     name: 'Эльбрус',
-    link: './images/elbrus.jpg'
+    link: elbrus
   },
   {
     name: 'Домбай',
-    link: './images/dombay.jpg'
+    link: dombay
   }
 ]
