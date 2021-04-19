@@ -39,6 +39,7 @@ const cardList = new Section({
   renderer: (item) => {
     const card = new Card(item, 'element', () => {
       popupWithImage.open(item.name, item.link);
+      popupWithImage.setEventListeners();
     });
     cardList.addItem(card.generateCard());
   }
@@ -72,6 +73,7 @@ addButton.addEventListener('click', () => {
   addValidator.disableSaveButton(saveButton);
   addValidator.deleteErrors();
   popupAddPicture.open();
+  popupAddPicture.setEventListeners();
 });
 
 // открытие окна редактирования по клику на кнопку
@@ -81,9 +83,5 @@ editButton.addEventListener('click', () => {
   inputProfileName.value = info.name;
   inputDescription.value = info.description;
   popupEditProfile.open();
+  popupEditProfile.setEventListeners();
 });
-
-// навешивание слушателей для попапов
-popupAddPicture.setEventListeners();
-popupEditProfile.setEventListeners();
-popupWithImage.setEventListeners();
