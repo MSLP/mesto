@@ -21,25 +21,18 @@ export default class Popup {
   // навешивание слушателей для выполнения закрытия
   setEventListeners() {
     this._closeButton.addEventListener('click', () => this.close());
-    document.addEventListener('keydown', (evt) => this._handleEscClose(evt));
     this._popup.addEventListener('click', (evt) => this._handleOverlayClose(evt));
-  }
-
-  // снятие слушателей на закрытие
-  _removeEventListeners() {
-    this._closeButton.removeEventListener('click', () => this.close());
-    document.removeEventListener('keydown', (evt) => this._handleEscClose(evt));
-    this._popup.removeEventListener('click', (evt) => this._handleOverlayClose(evt));
   }
 
   // открытие попапа
   open() {
     this._popup.classList.add('popup_opened');
+    document.addEventListener('keydown', this._handleEscClose.bind(this));
   }
 
   // закрытие попапа
   close() {
     this._popup.classList.remove('popup_opened');
-    this._removeEventListeners();
+    document.removeEventListener('keydown', this._handleEscClose);
   }
 }

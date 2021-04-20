@@ -7,20 +7,21 @@ export default class PopupWithForm extends Popup {
     this._formSubmit = formSubmit;
     this._inputValues = {};
     this._form = this._popup.querySelector('.popup__form');
+    this._allInputs = Array.from(this._popup.querySelectorAll('.popup__input'));
   }
 
   // получение данных из полей формы
   _getInputValues() {
-    const allInputs = Array.from(this._popup.querySelectorAll('.popup__input'));
-    allInputs.forEach(input => {
+    this._allInputs.forEach(input => {
       this._inputValues[input.name] = input.value;
     });
+    return this._inputValues;
   }
 
   // навешивание слушателей на попап
   setEventListeners() {
     super.setEventListeners();
-    this._form.addEventListener('submit', this._formSubmit);
+    this._form.addEventListener('submit', () => this._formSubmit(this._getInputValues()));
   }
 
   // закрытие попапа

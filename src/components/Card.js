@@ -38,8 +38,9 @@ export default class Card {
   // заполняется разметка карточки данными
   generateCard() {
     this._card = this._getTemplate();
-    this._card.querySelector(`.${this._selector}__img`).src = this._link;
-    this._card.querySelector(`.${this._selector}__img`).alt = this._name;
+    const img = this._card.querySelector(`.${this._selector}__img`);
+    img.src = this._link;
+    img.alt = this._name;
     this._card.querySelector(`.${this._selector}__title`).textContent = this._name;
     this._setEventListeners();
     return this._card;

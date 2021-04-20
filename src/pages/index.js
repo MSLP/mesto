@@ -36,14 +36,18 @@ const addForm = document.querySelector('.popup__add-form');
 const addValidator = new FormValidator(obj, addForm);
 const saveButton = addForm.querySelector('.popup__save');
 
+// создание карточки
+function createCard(item) {
+  return new Card(item, 'element', () => {
+    popupWithImage.open(item.name, item.link);
+  });
+}
+
 // отображение изначально имеющихся фото элементов
 const cardList = new Section({
   items: initialElements,
   renderer: (item) => {
-    const card = new Card(item, 'element', () => {
-      popupWithImage.open(item.name, item.link);
-      popupWithImage.setEventListeners();
-    });
+    const card = createCard(item);
     cardList.addItem(card.generateCard());
   }
 }, '.elements');
@@ -54,37 +58,38 @@ addValidator.enableValidation();
 editValidator.enableValidation();
 
 // сохранение формы редактирования профиля
-const popupEditProfile = new PopupWithForm('.popup_edit-profile', () => {
-  popupEditProfile._getInputValues();
-  user.setUserInfo(popupEditProfile._inputValues['profile-name'], popupEditProfile._inputValues['profile-description']);
+const popupEditProfile = new PopupWithForm('.popup_edit-profile', (inputValues) => {
+  user.setUserInfo(inputValues['profile-name'], inputValues['profile-description']);
   popupEditProfile.close();
 });
 
 // сохранение формы добавления новой фотографии
-const popupAddPicture = new PopupWithForm('.popup_add-picture', () => {
-  popupAddPicture._getInputValues();
+const popupAddPicture = new PopupWithForm('.popup_add-picture', (inputValues) => {
   const newPhoto = {
-    name: popupAddPicture._inputValues['photo-name'],
-    link: popupAddPicture._inputValues['photo-link']
+    name: inputValues['photo-name'],
+    link: inputValues['photo-link']
   }
-  cardList._renderer(newPhoto);
+  cardList.addItem(createCard(newPhoto).generateCard());
   popupAddPicture.close();
 });
+
+// установка слушателей попапов
+popupWithImage.setEventListeners();
+popupAddPicture.setEventListeners();
+popupEditProfile.setEventListeners();
 
 // открытие окна добавления новой фотографии
 addButton.addEventListener('click', () => {
   addValidator.disableSaveButton(saveButton);
   addValidator.deleteErrors();
   popupAddPicture.open();
-  popupAddPicture.setEventListeners();
 });
 
 // открытие окна редактирования по клику на кнопку
 editButton.addEventListener('click', () => {
-  addValidator.deleteErrors();
+  editValidator.deleteErrors();
   const info = user.getUserInfo();
   inputProfileName.value = info.name;
   inputDescription.value = info.description;
   popupEditProfile.open();
-  popupEditProfile.setEventListeners();
 });

@@ -76,12 +76,6 @@ export default class FormValidator {
 
   // сброс всех ошибок полей, будет вызываться перед открытием попапа
   deleteErrors() {
-    const errorList = Array.from(document.querySelectorAll('.error'));
-    errorList.forEach(error => {
-      error.classList.remove('error_active');
-    });
-    this._inputList.forEach(input => {
-      input.classList.remove('popup__input_error');
-    })
+    this._inputList.forEach(input => this._hideError(input));
   }
 }
