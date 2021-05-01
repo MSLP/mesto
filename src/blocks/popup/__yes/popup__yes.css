@@ -1,0 +1,9 @@
+.popup__yes {
+  margin-top: -30px;
+}
+
+@media screen and (min-width: 768px) {
+  .popup__yes {
+    margin-top: -16px;
+  }
+}
