@@ -11,15 +11,18 @@
     </header>
     <main>
       <section class="profile">
+        <div class="profile__picture">
           <img class="profile__avatar" src="<%=require('./images/profile.jpg')%>" alt="аватарка">
-          <div class="profile__info">
-            <div class="profile__content">
-              <h1 class="profile__name">Жак-Ив Кусто</h1>
-              <button type="button" class="profile__edit-button button"></button>
-            </div>
-              <p class="profile__description">Исследователь океана</p>
+          <img class="profile__overlay" src="<%=require('./images/Pencil.svg')%>" alt="редактировать">
+        </div>
+        <div class="profile__info">
+          <div class="profile__content">
+            <h1 class="profile__name">Жак-Ив Кусто</h1>
+            <button type="button" class="profile__edit-button button"></button>
           </div>
-          <button type="button" class="profile__add-button button"></button>
+            <p class="profile__description">Исследователь океана</p>
+        </div>
+        <button type="button" class="profile__add-button button"></button>
       </section>
       <section class="elements">
         <template id="element">
