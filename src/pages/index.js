@@ -34,10 +34,11 @@ const editValidator = new FormValidator(obj, editForm);
 const addButton = document.querySelector('.profile__add-button');
 const addForm = document.querySelector('.popup__add-form');
 const addValidator = new FormValidator(obj, addForm);
-const saveButton = addForm.querySelector('.popup__save');
 
 // переменные для работы с окном обновления аватара
 const editAvatar = document.querySelector('.profile__edit-avatar');
+const avatarForm = document.querySelector('.popup__avatar-form');
+const avatarValidator = new FormValidator(obj, avatarForm);
 
 // создание карточки
 function createCard(item) {
@@ -59,6 +60,7 @@ cardList.renderItems();
 // включение валидации форм
 addValidator.enableValidation();
 editValidator.enableValidation();
+avatarValidator.enableValidation();
 
 // сохранение формы редактирования профиля
 const popupEditProfile = new PopupWithForm('.popup_edit-profile', (inputValues) => {
@@ -76,14 +78,19 @@ const popupAddPicture = new PopupWithForm('.popup_add-picture', (inputValues) =>
   popupAddPicture.close();
 });
 
+const popupEditAvatar = new PopupWithForm('.popup_edit-avatar', (inputValues) => {
+  popupEditAvatar.close();
+});
+
 // установка слушателей попапов
 popupWithImage.setEventListeners();
 popupAddPicture.setEventListeners();
 popupEditProfile.setEventListeners();
+popupEditAvatar.setEventListeners();
 
 // открытие окна добавления новой фотографии
 addButton.addEventListener('click', () => {
-  addValidator.disableSaveButton(saveButton);
+  addValidator.disableSaveButton();
   addValidator.deleteErrors();
   popupAddPicture.open();
 });
@@ -95,4 +102,11 @@ editButton.addEventListener('click', () => {
   inputProfileName.value = info.name;
   inputDescription.value = info.description;
   popupEditProfile.open();
+});
+
+// открытие окна редактирования аватара
+editAvatar.addEventListener('click', () => {
+  avatarValidator.deleteErrors();
+  avatarValidator.disableSaveButton();
+  popupEditAvatar.open();
 });
