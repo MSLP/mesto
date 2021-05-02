@@ -46,7 +46,7 @@
 
     <section class="popup popup_edit-profile">
       <div class="popup__container">
-          <button type="button" class="popup__close button popup__close_edit-profile"></button>
+          <button type="button" class="popup__close button"></button>
           <h2 class="popup__title">Редактировать профиль</h2>
           <form name="profile-form" class="popup__edit-form popup__form" novalidate>
               <input type="text" class="popup__input popup__input_profile-name" name="profile-name"
@@ -61,13 +61,13 @@
     </section>
     <section class="popup popup_add-picture">
       <div class="popup__container">
-        <button type="button" class="popup__close button popup__close_add-picture"></button>
+        <button type="button" class="popup__close button"></button>
         <h2 class="popup__title">Новое место</h2>
         <form name="photo-form" class="popup__add-form popup__form" novalidate>
-            <input type="text" class="popup__input popup__input_photo-name" name="photo-name"
+            <input type="text" class="popup__input" name="photo-name"
               placeholder="Название" minlength="2" maxlength="30" required>
             <span id="photo-name-error" class="error"></span>
-            <input type="url" class="popup__input popup__input_photo-link" name="photo-link"
+            <input type="url" class="popup__input" name="photo-link"
               placeholder="Ссылка на картинку" required>
             <span id="photo-link-error" class="error"></span>
             <button type="submit" class="popup__save button">Создать</button>
@@ -76,16 +76,28 @@
     </section>
     <section class="popup popup_show-picture">
       <figure class="popup__show-content">
-        <button type="button" class="popup__close button popup__close_show-picture"></button>
+        <button type="button" class="popup__close button"></button>
         <img class="popup__picture" src="#" alt="изображение отсутствует">
         <figcaption class="popup__pic-title"></figcaption>
       </figure>
     </section>
     <section class="popup popup_delete-picture">
       <div class="popup__container">
-        <button type="button" class="popup__close button popup__close_add-picture"></button>
+        <button type="button" class="popup__close button"></button>
         <h2 class="popup__title">Вы уверены?</h2>
         <button type="submit" class="popup__save popup__yes button">Да</button>
+      </div>
+    </section>
+    <section class="popup popup_edit-avatar">
+      <div class="popup__container">
+        <button type="button" class="popup__close button"></button>
+        <h2 class="popup__title">Обновить аватар</h2>
+        <form name="avatar-form" class="popup__avatar-form popup__form" novalidate>
+          <input type="url" class="popup__input" name="avatar-link"
+          placeholder="Ссылка на фото" required>
+          <span id="avatar-link-error" class="error"></span>
+        </form>
+        <button type="submit" class="popup__save button">Сохранить</button>
       </div>
     </section>
 </body>
