@@ -36,6 +36,9 @@ const addForm = document.querySelector('.popup__add-form');
 const addValidator = new FormValidator(obj, addForm);
 const saveButton = addForm.querySelector('.popup__save');
 
+// переменные для работы с окном обновления аватара
+const editAvatar = document.querySelector('.profile__edit-avatar');
+
 // создание карточки
 function createCard(item) {
   return new Card(item, 'element', () => {

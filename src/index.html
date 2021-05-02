@@ -11,10 +11,12 @@
     </header>
     <main>
       <section class="profile">
-        <div class="profile__picture">
-          <img class="profile__avatar" src="<%=require('./images/profile.jpg')%>" alt="аватарка">
-          <img class="profile__overlay" src="<%=require('./images/Pencil.svg')%>" alt="редактировать">
-        </div>
+        <button class="button profile__edit-avatar">
+          <div class="profile__picture">
+            <img class="profile__avatar" src="<%=require('./images/profile.jpg')%>" alt="аватарка">
+            <img class="profile__overlay" src="<%=require('./images/Pencil.svg')%>" alt="редактировать">
+          </div>
+        </button>
         <div class="profile__info">
           <div class="profile__content">
             <h1 class="profile__name">Жак-Ив Кусто</h1>
