@@ -43,13 +43,21 @@ export default class Api {
   }
 
   // изменение информации о пользователе
-  changeUserInfo() {
-
+  changeUserInfo(newInfo) {
+    return fetch(`${this.baseUrl}/users/me`, {
+      method: 'PATCH',
+      headers: this.headers,
+      body: JSON.stringify(newInfo)
+    })
   }
 
   // изменить фото в профиле
-  changeAvatar() {
-
+  changeAvatar(newLink) {
+    return fetch(`${this.baseUrl}/users/me/avatar`, {
+      method: 'PATCH',
+      headers: this.headers,
+      body: JSON.stringify(newLink)
+    })
   }
 
   // поставить лайк

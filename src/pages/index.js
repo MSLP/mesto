@@ -83,7 +83,10 @@ avatarValidator.enableValidation();
 
 // сохранение формы редактирования профиля
 const popupEditProfile = new PopupWithForm('.popup_edit-profile', (inputValues) => {
-  user.setUserInfo(inputValues['profile-name'], inputValues['profile-description']);
+  const newInfo = {name: inputValues['profile-name'], about: inputValues['profile-description']};
+  api.changeUserInfo(newInfo)
+  .catch(err => console.log('Ошибка. Запрос не выполнен: ', err));
+  user.setUserInfo(newInfo.name, newInfo.about);
   popupEditProfile.close();
 });
 
@@ -97,7 +100,11 @@ const popupAddPicture = new PopupWithForm('.popup_add-picture', (inputValues) =>
   popupAddPicture.close();
 });
 
+// сохранение формы изменения аватарки
 const popupEditAvatar = new PopupWithForm('.popup_edit-avatar', (inputValues) => {
+  console.log(inputValues['avatar-link']);
+  api.changeAvatar({avatar: inputValues['avatar-link']})
+  .catch(err => console.log('Ошибка. Запрос не выполнен: ', err));
   popupEditAvatar.close();
 });
 
