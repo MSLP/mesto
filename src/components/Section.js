@@ -1,19 +1,18 @@
 // класс отвечающий за отрисовку элементов на странице
 export default class Section {
-  constructor({items, renderer}, containerSelector) {
-    this._items = items;
+  constructor(renderer, containerSelector) {
     this._renderer = renderer;
     this._container = document.querySelector(containerSelector);
   }
 
-  // отрисовка элементов на странице
-  renderItems() {
-    this._items.forEach(item => {
+  // отрисовка изначальных элементов на странице
+  renderAllItems(items) {
+    items.forEach(item => {
       this._renderer(item);
     });
   }
 
-  // добавление элемента в список на отрисовку
+  // добавление нового элемента на страницу
   addItem(item) {
     this._container.prepend(item);
   }

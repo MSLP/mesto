@@ -1,11 +1,21 @@
 export default class Api {
   constructor(options) {
-    this._options = options;
+    this.baseUrl = options.baseUrl;
+    this.headers = options.headers;
   }
 
   // получение изначальных карточек
   getInitialCards() {
-
+    return fetch(`${this.baseUrl}/cards`, {
+      method: 'GET',
+      headers: this.headers
+    })
+    .then(res => {
+      if (res.ok)
+        return res.json();
+      else
+        return Promise.reject(`Ошибка: ${res.status}`);
+    })
   }
 
   // добавление новой карточки
@@ -20,9 +30,9 @@ export default class Api {
 
   // получение информации о пользователе
   getUserInfo() {
-    return fetch(`${this._options.baseUrl}/users/me`, {
+    return fetch(`${this.baseUrl}/users/me`, {
       method: 'GET',
-      headers: this._options.headers
+      headers: this.headers
     })
     .then(res => {
       if (res.ok)
@@ -54,6 +64,6 @@ export default class Api {
 
   // тест запросов
   test() {
-    console.log(this.getUserInfo());
+    console.log();
   }
 }

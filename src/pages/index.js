@@ -1,6 +1,5 @@
 import './index.css';
 
-import {initialElements} from '../components/initial-elements.js';
 import Card from '../components/Card.js';
 import FormValidator from '../components/FormValidator.js';
 import Section from '../components/Section.js';
@@ -49,15 +48,33 @@ function createCard(item) {
   });
 }
 
-// отображение изначально имеющихся фото элементов
-const cardList = new Section({
-  items: initialElements,
-  renderer: (item) => {
+// создание класса отвечающего за работу с сервером
+const api = new Api({
+  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-23',
+  headers: {
+    authorization: 'f6f9ecaf-e6cf-427c-9bec-74dcbb4a47a1',
+    'Content-Type': 'application/json'
+  }
+});
+
+// отображение информации профиля
+api.getUserInfo()
+.then(data => {
+  avatar.src = data.avatar;
+  user.setUserInfo(data.name, data.about)})
+.catch(err => console.log('Ошибка. Запрос не выполнен: ', err));
+
+// отображение изначально имеющихся фото-карточек
+const cardList = new Section((item) => {
     const card = createCard(item);
     cardList.addItem(card.generateCard());
-  }
-}, '.elements');
-cardList.renderItems();
+  }, '.elements');
+
+api.getInitialCards()
+.then(data => {
+  const initialElements = data;
+  cardList.renderAllItems(initialElements);
+})
 
 // включение валидации форм
 addValidator.enableValidation();
@@ -112,17 +129,3 @@ editAvatar.addEventListener('click', () => {
   avatarValidator.disableSaveButton();
   popupEditAvatar.open();
 });
-
-const api = new Api({
-  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-23',
-  headers: {
-    authorization: 'f6f9ecaf-e6cf-427c-9bec-74dcbb4a47a1',
-    'Content-Type': 'application/json'
-  }
-});
-
-api.getUserInfo()
-.then(data => {
-  avatar.src = data.avatar;
-  user.setUserInfo(data.name, data.about)})
-.catch(err => console.log('Ошибка. Запрос не выполнен: ', err));
