@@ -7,6 +7,7 @@ import Section from '../components/Section.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import UserInfo from '../components/UserInfo.js';
+import Api from '../components/Api.js';
 
 // объект с селекторами попапов
 const obj = {
@@ -36,6 +37,7 @@ const addForm = document.querySelector('.popup__add-form');
 const addValidator = new FormValidator(obj, addForm);
 
 // переменные для работы с окном обновления аватара
+const avatar = document.querySelector('.profile__avatar');
 const editAvatar = document.querySelector('.profile__edit-avatar');
 const avatarForm = document.querySelector('.popup__avatar-form');
 const avatarValidator = new FormValidator(obj, avatarForm);
@@ -110,3 +112,17 @@ editAvatar.addEventListener('click', () => {
   avatarValidator.disableSaveButton();
   popupEditAvatar.open();
 });
+
+const api = new Api({
+  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-23',
+  headers: {
+    authorization: 'f6f9ecaf-e6cf-427c-9bec-74dcbb4a47a1',
+    'Content-Type': 'application/json'
+  }
+});
+
+api.getUserInfo()
+.then(data => {
+  avatar.src = data.avatar;
+  user.setUserInfo(data.name, data.about)})
+.catch(err => console.log('Ошибка. Запрос не выполнен: ', err));
