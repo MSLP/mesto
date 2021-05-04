@@ -61,13 +61,31 @@ export default class Api {
   }
 
   // поставить лайк
-  likeCard() {
-
+  likeCard(cardId) {
+    return fetch(`${this.baseUrl}/cards/likes/${cardId}`, {
+      method: 'PUT',
+      headers: this.headers
+    })
+    .then(res => {
+      if (res.ok)
+        return res.json();
+      else
+        return Promise.reject(`Ошибка: ${res.status}`);
+    })
   }
 
   // убрать лайк
-  dislikeCard() {
-
+  dislikeCard(cardId) {
+    return fetch(`${this.baseUrl}/cards/likes/${cardId}`, {
+      method: 'DELETE',
+      headers: this.headers
+    })
+    .then(res => {
+      if (res.ok)
+        return res.json();
+      else
+        return Promise.reject(`Ошибка: ${res.status}`);
+    })
   }
 
   // тест запросов

@@ -42,10 +42,10 @@ const avatarForm = document.querySelector('.popup__avatar-form');
 const avatarValidator = new FormValidator(obj, avatarForm);
 
 // создание карточки
-function createCard(item) {
-  return new Card(item, 'element', () => {
+function createCard(item, id) {
+  return new Card(item, id, 'element', () => {
     popupWithImage.open(item.name, item.link);
-  });
+  }, api);
 }
 
 // создание класса отвечающего за работу с сервером
@@ -61,20 +61,21 @@ const api = new Api({
 api.getUserInfo()
 .then(data => {
   avatar.src = data.avatar;
-  user.setUserInfo(data.name, data.about)})
-.catch(err => console.log('Ошибка. Запрос не выполнен: ', err));
+  user.setUserInfo(data.name, data.about);
 
-// отображение изначально имеющихся фото-карточек
-const cardList = new Section((item) => {
-    const card = createCard(item);
+  // отображение изначально имеющихся фото-карточек
+  const cardList = new Section((item, data) => {
+    const card = createCard(item, data._id);
     cardList.addItem(card.generateCard());
   }, '.elements');
 
-api.getInitialCards()
-.then(data => {
-  const initialElements = data;
-  cardList.renderAllItems(initialElements);
+  api.getInitialCards()
+  .then(cards => {
+  const initialElements = cards;
+  cardList.renderAllItems(initialElements, data);
+  })
 })
+.catch(err => console.log('Ошибка. Запрос не выполнен: ', err));
 
 // включение валидации форм
 addValidator.enableValidation();

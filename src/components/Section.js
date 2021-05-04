@@ -6,9 +6,9 @@ export default class Section {
   }
 
   // отрисовка изначальных элементов на странице
-  renderAllItems(items) {
+  renderAllItems(items, data) {
     items.forEach(item => {
-      this._renderer(item);
+      this._renderer(item, data);
     });
   }
 
