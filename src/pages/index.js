@@ -71,8 +71,30 @@ api.getUserInfo()
 
   api.getInitialCards()
   .then(cards => {
-  const initialElements = cards;
-  cardList.renderAllItems(initialElements, data);
+    const initialElements = cards;
+    cardList.renderAllItems(initialElements, data);
+
+    // сохранение формы добавления новой фотографии
+    const popupAddPicture = new PopupWithForm('.popup_add-picture', (inputValues) => {
+      const newPhoto = {
+        name: inputValues['photo-name'],
+        link: inputValues['photo-link']
+      }
+      api.addCard(newPhoto)
+      .then(card => {
+        cardList.addItem(createCard(card, data._id).generateCard());
+        popupAddPicture.close();
+      })
+      .catch(err => console.log('Ошибка. Запрос не выполнен: ', err));
+    });
+    popupAddPicture.setEventListeners(); // слушатели для закрытия попапа
+
+    // открытие окна добавления новой фотографии
+    addButton.addEventListener('click', () => {
+      addValidator.disableSaveButton();
+      addValidator.deleteErrors();
+      popupAddPicture.open();
+    });
   })
 })
 .catch(err => console.log('Ошибка. Запрос не выполнен: ', err));
@@ -91,16 +113,6 @@ const popupEditProfile = new PopupWithForm('.popup_edit-profile', (inputValues) 
   popupEditProfile.close();
 });
 
-// сохранение формы добавления новой фотографии
-const popupAddPicture = new PopupWithForm('.popup_add-picture', (inputValues) => {
-  const newPhoto = {
-    name: inputValues['photo-name'],
-    link: inputValues['photo-link']
-  }
-  cardList.addItem(createCard(newPhoto).generateCard());
-  popupAddPicture.close();
-});
-
 // сохранение формы изменения аватарки
 const popupEditAvatar = new PopupWithForm('.popup_edit-avatar', (inputValues) => {
   console.log(inputValues['avatar-link']);
@@ -111,16 +123,8 @@ const popupEditAvatar = new PopupWithForm('.popup_edit-avatar', (inputValues) =>
 
 // установка слушателей попапов
 popupWithImage.setEventListeners();
-popupAddPicture.setEventListeners();
 popupEditProfile.setEventListeners();
 popupEditAvatar.setEventListeners();
-
-// открытие окна добавления новой фотографии
-addButton.addEventListener('click', () => {
-  addValidator.disableSaveButton();
-  addValidator.deleteErrors();
-  popupAddPicture.open();
-});
 
 // открытие окна редактирования по клику на кнопку
 editButton.addEventListener('click', () => {

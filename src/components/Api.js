@@ -19,8 +19,18 @@ export default class Api {
   }
 
   // добавление новой карточки
-  addCard() {
-
+  addCard(card) {
+    return fetch(`${this.baseUrl}/cards`, {
+      method: 'POST',
+      headers: this.headers,
+      body: JSON.stringify(card)
+    })
+    .then(res => {
+      if (res.ok)
+        return res.json();
+      else
+        return Promise.reject(`Ошибка: ${res.status}`);
+    })
   }
 
   // удаление карточки
