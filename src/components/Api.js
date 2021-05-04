@@ -106,9 +106,4 @@ export default class Api {
         return Promise.reject(`Ошибка: ${res.status}`);
     })
   }
-
-  // тест запросов
-  test() {
-    console.log();
-  }
 }

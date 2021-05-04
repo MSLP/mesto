@@ -1,7 +1,6 @@
 // класс карточки с фото
 export default class Card {
   constructor(element, userId, selector, handleCardClick, api, popupDelete) {
-    // console.log(element)
     this._name = element.name;
     this._link = element.link;
     this._counter = element.likes;
@@ -68,9 +67,14 @@ export default class Card {
       this.deleteButton.addEventListener('click', () => {
         this._popupDelete.open();
         this._popupDelete.setFormSubmit(() => {
+          this._popupDelete.loading(true);
           this._api.deleteCard(this._id)
-          .then(() => this._popupDelete.close())
+          .then(() => {
+            this._popupDelete.close();
+            this._card.remove();
+          })
           .catch(err => console.log('Ошибка. Запрос не выполнен: ', err))
+          .finally(() => this._popupDelete.loading(false))
         });
       });
   }

@@ -81,12 +81,13 @@ api.getUserInfo()
         name: inputValues['photo-name'],
         link: inputValues['photo-link']
       }
+      popupAddPicture.loading(true);
       api.addCard(newPhoto)
       .then(card => {
         cardList.addItem(createCard(card, data._id).generateCard());
         popupAddPicture.close();
       })
-      .catch(err => console.log('Ошибка. Запрос не выполнен: ', err));
+      .catch(err => console.log('Ошибка. Запрос не выполнен: ', err))
     });
     popupAddPicture.setEventListeners(); // слушатели для закрытия попапа
 
@@ -107,19 +108,24 @@ avatarValidator.enableValidation();
 
 // сохранение формы редактирования профиля
 const popupEditProfile = new PopupWithForm('.popup_edit-profile', (inputValues) => {
+  popupEditProfile.loading(true);
   const newInfo = {name: inputValues['profile-name'], about: inputValues['profile-description']};
   api.changeUserInfo(newInfo)
+  .then(() => {
+    user.setUserInfo(newInfo.name, newInfo.about);
+    popupEditProfile.close();
+  })
   .catch(err => console.log('Ошибка. Запрос не выполнен: ', err));
-  user.setUserInfo(newInfo.name, newInfo.about);
-  popupEditProfile.close();
 });
 
 // сохранение формы изменения аватарки
 const popupEditAvatar = new PopupWithForm('.popup_edit-avatar', (inputValues) => {
-  console.log(inputValues['avatar-link']);
+  popupEditAvatar.loading(true);
   api.changeAvatar({avatar: inputValues['avatar-link']})
+  .then(() => {
+   popupEditAvatar.close();
+  })
   .catch(err => console.log('Ошибка. Запрос не выполнен: ', err));
-  popupEditAvatar.close();
 });
 
 // экземпляр попапа подтверждения удаления фото
