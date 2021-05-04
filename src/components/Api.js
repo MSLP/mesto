@@ -34,8 +34,17 @@ export default class Api {
   }
 
   // удаление карточки
-  deleteCard() {
-
+  deleteCard(cardId) {
+    return fetch(`${this.baseUrl}/cards/${cardId}`, {
+      method: 'DELETE',
+      headers: this.headers,
+    })
+    .then(res => {
+      if (res.ok)
+        return res.json();
+      else
+        return Promise.reject(`Ошибка: ${res.status}`);
+    });
   }
 
   // получение информации о пользователе

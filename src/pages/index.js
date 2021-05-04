@@ -7,6 +7,7 @@ import PopupWithForm from '../components/PopupWithForm.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import UserInfo from '../components/UserInfo.js';
 import Api from '../components/Api.js';
+import PopupWithConfirmation from '../components/PopupWithConfirmation';
 
 // объект с селекторами попапов
 const obj = {
@@ -45,7 +46,7 @@ const avatarValidator = new FormValidator(obj, avatarForm);
 function createCard(item, id) {
   return new Card(item, id, 'element', () => {
     popupWithImage.open(item.name, item.link);
-  }, api);
+  }, api, popupDeleteCard);
 }
 
 // создание класса отвечающего за работу с сервером
@@ -121,10 +122,14 @@ const popupEditAvatar = new PopupWithForm('.popup_edit-avatar', (inputValues) =>
   popupEditAvatar.close();
 });
 
+// экземпляр попапа подтверждения удаления фото
+const popupDeleteCard = new PopupWithConfirmation('.popup_delete-picture');
+
 // установка слушателей попапов
 popupWithImage.setEventListeners();
 popupEditProfile.setEventListeners();
 popupEditAvatar.setEventListeners();
+popupDeleteCard.setEventListeners();
 
 // открытие окна редактирования по клику на кнопку
 editButton.addEventListener('click', () => {

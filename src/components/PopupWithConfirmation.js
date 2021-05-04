@@ -1,20 +1,15 @@
-// import Popup from './Popup.js';
+import Popup from './Popup.js';
 
-// export default class PopupWithConfirmation extends Popup {
-//   constructor(popupSelector, formSubmit) {
-//     super(popupSelector);
-//     this._form = this._popup.querySelector('.popup__form');
-//     this._formSubmit = formSubmit;
-//   }
+export default class PopupWithConfirmation extends Popup {
+  // передаем функцию удаления
+  setFormSubmit(submit) {
+    this._formSubmit = submit;
+  }
 
-// меняем функцию сохранения(?)
-// changeFunction() {
-
-// }
-
-//   // навешивание слушателей на попап
-//   setEventListeners() {
-//     super.setEventListeners();
-//     this._form.addEventListener('submit', () => this._formSubmit());
-//   }
-// }
+  // навешивание слушателей на попап
+  setEventListeners() {
+    super.setEventListeners();
+    this._button = this._popup.querySelector('.popup__save');
+    this._button.addEventListener('click', () => this._formSubmit());
+  }
+}
