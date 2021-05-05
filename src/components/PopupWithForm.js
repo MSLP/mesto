@@ -21,7 +21,7 @@ export default class PopupWithForm extends Popup {
   }
 
   // ожидание отправки запроса на сервер
-  loading(isLoading) {
+  renderLoading(isLoading) {
     if (isLoading)
       this._button.textContent = 'Сохранение ...';
     else
@@ -38,6 +38,6 @@ export default class PopupWithForm extends Popup {
   close() {
     super.close();
     this._form.reset();
-    this.loading(false);
+    this.renderLoading(false);
   }
 }

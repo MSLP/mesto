@@ -13,7 +13,7 @@ export default class PopupWithConfirmation extends Popup {
   }
 
   // ожидание отправки запроса на сервер
-  loading(isLoading) {
+  renderLoading(isLoading) {
     if (isLoading)
       this._button.textContent = this._buttonContent + '...';
     else

@@ -74,7 +74,7 @@ api.getUserInfo()
         name: inputValues['photo-name'],
         link: inputValues['photo-link']
       }
-      popupAddPicture.loading(true);
+      popupAddPicture.renderLoading(true);
       api.addCard(newPhoto)
       .then(card => {
         cardList.addItem(createCard(card, data._id).generateCard());
@@ -101,7 +101,7 @@ avatarValidator.enableValidation();
 
 // сохранение формы редактирования профиля
 const popupEditProfile = new PopupWithForm('.popup_edit-profile', (inputValues) => {
-  popupEditProfile.loading(true);
+  popupEditProfile.renderLoading(true);
   const newInfo = {name: inputValues['profile-name'], about: inputValues['profile-description']};
   api.changeUserInfo(newInfo)
   .then((data) => {
@@ -113,7 +113,7 @@ const popupEditProfile = new PopupWithForm('.popup_edit-profile', (inputValues) 
 
 // сохранение формы изменения аватарки
 const popupEditAvatar = new PopupWithForm('.popup_edit-avatar', (inputValues) => {
-  popupEditAvatar.loading(true);
+  popupEditAvatar.renderLoading(true);
   api.changeAvatar({avatar: inputValues['avatar-link']})
   .then((data) => {
     user.setUserInfo(data.name, data.about, data.avatar);

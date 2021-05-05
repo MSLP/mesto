@@ -67,14 +67,14 @@ export default class Card {
       this.deleteButton.addEventListener('click', () => {
         this._popupDelete.open();
         this._popupDelete.setFormSubmit(() => {
-          this._popupDelete.loading(true);
+          this._popupDelete.renderLoading(true);
           this._api.deleteCard(this._id)
           .then(() => {
             this._popupDelete.close();
             this._card.remove();
           })
           .catch(err => console.log('Ошибка. Запрос не выполнен: ', err))
-          .finally(() => this._popupDelete.loading(false))
+          .finally(() => this._popupDelete.renderLoading(false))
         });
       });
   }
