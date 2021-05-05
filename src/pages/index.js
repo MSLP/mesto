@@ -8,15 +8,7 @@ import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithConfirmation from '../components/PopupWithConfirmation';
 import UserInfo from '../components/UserInfo.js';
 import Api from '../components/Api.js';
-
-// объект с селекторами попапов
-const obj = {
-  inputSelector: '.popup__input',
-  buttonSelector: '.popup__save',
-  errorActive: 'error_active',
-  inputError: 'popup__input_error',
-  saveDisable: 'popup__save_disable'
-}
+import {obj} from '../components/constants.js';
 
 // создание экземпляра окна отображения фотографии
 const popupWithImage = new PopupWithImage('.popup_show-picture');
