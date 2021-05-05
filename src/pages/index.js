@@ -13,8 +13,11 @@ import {obj} from '../components/constants.js';
 // создание экземпляра окна отображения фотографии
 const popupWithImage = new PopupWithImage('.popup_show-picture');
 
+// экземпляр попапа подтверждения удаления фото
+const popupDeleteCard = new PopupWithConfirmation('.popup_delete-picture');
+
 // создание экзепляра информации о пользователе
-const user = new UserInfo('.profile__name', '.profile__description');
+const user = new UserInfo('.profile__name', '.profile__description', '.profile__avatar');
 
 // переменные для работы с окном редактирования профиля
 const editButton = document.querySelector('.profile__edit-button');
@@ -29,19 +32,11 @@ const addForm = document.querySelector('.popup__add-form');
 const addValidator = new FormValidator(obj, addForm);
 
 // переменные для работы с окном обновления аватара
-const avatar = document.querySelector('.profile__avatar');
 const editAvatar = document.querySelector('.profile__edit-avatar');
 const avatarForm = document.querySelector('.popup__avatar-form');
 const avatarValidator = new FormValidator(obj, avatarForm);
 
-// создание карточки
-function createCard(item, id) {
-  return new Card(item, id, 'element', () => {
-    popupWithImage.open(item.name, item.link);
-  }, api, popupDeleteCard);
-}
-
-// создание класса отвечающего за работу с сервером
+// создание экземпляра класса отвечающего за работу с сервером
 const api = new Api({
   baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-23',
   headers: {
@@ -50,11 +45,17 @@ const api = new Api({
   }
 });
 
+// создание карточки
+function createCard(item, id) {
+  return new Card(item, id, 'element', () => {
+    popupWithImage.open(item.name, item.link);
+  }, api, popupDeleteCard);
+}
+
 // отображение информации профиля
 api.getUserInfo()
 .then(data => {
-  avatar.src = data.avatar;
-  user.setUserInfo(data.name, data.about);
+  user.setUserInfo(data.name, data.about, data.avatar);
 
   // отображение изначально имеющихся фото-карточек
   const cardList = new Section((item, data) => {
@@ -103,8 +104,8 @@ const popupEditProfile = new PopupWithForm('.popup_edit-profile', (inputValues) 
   popupEditProfile.loading(true);
   const newInfo = {name: inputValues['profile-name'], about: inputValues['profile-description']};
   api.changeUserInfo(newInfo)
-  .then(() => {
-    user.setUserInfo(newInfo.name, newInfo.about);
+  .then((data) => {
+    user.setUserInfo(data.name, data.about, data.avatar);
     popupEditProfile.close();
   })
   .catch(err => console.log('Ошибка. Запрос не выполнен: ', err));
@@ -114,14 +115,12 @@ const popupEditProfile = new PopupWithForm('.popup_edit-profile', (inputValues) 
 const popupEditAvatar = new PopupWithForm('.popup_edit-avatar', (inputValues) => {
   popupEditAvatar.loading(true);
   api.changeAvatar({avatar: inputValues['avatar-link']})
-  .then(() => {
-   popupEditAvatar.close();
+  .then((data) => {
+    user.setUserInfo(data.name, data.about, data.avatar);
+    popupEditAvatar.close();
   })
   .catch(err => console.log('Ошибка. Запрос не выполнен: ', err));
 });
-
-// экземпляр попапа подтверждения удаления фото
-const popupDeleteCard = new PopupWithConfirmation('.popup_delete-picture');
 
 // установка слушателей попапов
 popupWithImage.setEventListeners();

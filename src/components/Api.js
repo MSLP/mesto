@@ -68,6 +68,12 @@ export default class Api {
       headers: this.headers,
       body: JSON.stringify(newInfo)
     })
+    .then(res => {
+      if (res.ok)
+        return res.json();
+      else
+        return Promise.reject(`Ошибка: ${res.status}`);
+    })
   }
 
   // изменить фото в профиле
@@ -76,6 +82,12 @@ export default class Api {
       method: 'PATCH',
       headers: this.headers,
       body: JSON.stringify(newLink)
+    })
+    .then(res => {
+      if (res.ok)
+        return res.json();
+      else
+        return Promise.reject(`Ошибка: ${res.status}`);
     })
   }
 
