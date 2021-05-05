@@ -65,7 +65,7 @@ api.getUserInfo()
 
   api.getInitialCards()
   .then(cards => {
-    const initialElements = cards;
+    const initialElements = cards.reverse();
     cardList.renderAllItems(initialElements, data);
 
     // сохранение формы добавления новой фотографии
