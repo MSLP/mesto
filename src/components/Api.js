@@ -4,18 +4,21 @@ export default class Api {
     this.headers = options.headers;
   }
 
+  // проверка ответа от сервера
+  _checkResponse(res) {
+    if (res.ok)
+        return res.json();
+      else
+        return Promise.reject(`Ошибка: ${res.status}`);
+  }
+
   // получение изначальных карточек
   getInitialCards() {
     return fetch(`${this.baseUrl}/cards`, {
       method: 'GET',
       headers: this.headers
     })
-    .then(res => {
-      if (res.ok)
-        return res.json();
-      else
-        return Promise.reject(`Ошибка: ${res.status}`);
-    })
+    .then(this._checkResponse);
   }
 
   // добавление новой карточки
@@ -25,12 +28,7 @@ export default class Api {
       headers: this.headers,
       body: JSON.stringify(card)
     })
-    .then(res => {
-      if (res.ok)
-        return res.json();
-      else
-        return Promise.reject(`Ошибка: ${res.status}`);
-    })
+    .then(this._checkResponse);
   }
 
   // удаление карточки
@@ -39,12 +37,7 @@ export default class Api {
       method: 'DELETE',
       headers: this.headers,
     })
-    .then(res => {
-      if (res.ok)
-        return res.json();
-      else
-        return Promise.reject(`Ошибка: ${res.status}`);
-    });
+    .then(this._checkResponse);
   }
 
   // получение информации о пользователе
@@ -53,12 +46,7 @@ export default class Api {
       method: 'GET',
       headers: this.headers
     })
-    .then(res => {
-      if (res.ok)
-        return res.json();
-      else
-        return Promise.reject(`Ошибка: ${res.status}`);
-    })
+    .then(this._checkResponse);
   }
 
   // изменение информации о пользователе
@@ -68,12 +56,7 @@ export default class Api {
       headers: this.headers,
       body: JSON.stringify(newInfo)
     })
-    .then(res => {
-      if (res.ok)
-        return res.json();
-      else
-        return Promise.reject(`Ошибка: ${res.status}`);
-    })
+    .then(this._checkResponse);
   }
 
   // изменить фото в профиле
@@ -83,12 +66,7 @@ export default class Api {
       headers: this.headers,
       body: JSON.stringify(newLink)
     })
-    .then(res => {
-      if (res.ok)
-        return res.json();
-      else
-        return Promise.reject(`Ошибка: ${res.status}`);
-    })
+    .then(this._checkResponse);
   }
 
   // поставить лайк
@@ -97,12 +75,7 @@ export default class Api {
       method: 'PUT',
       headers: this.headers
     })
-    .then(res => {
-      if (res.ok)
-        return res.json();
-      else
-        return Promise.reject(`Ошибка: ${res.status}`);
-    })
+    .then(this._checkResponse);
   }
 
   // убрать лайк
@@ -111,11 +84,6 @@ export default class Api {
       method: 'DELETE',
       headers: this.headers
     })
-    .then(res => {
-      if (res.ok)
-        return res.json();
-      else
-        return Promise.reject(`Ошибка: ${res.status}`);
-    })
+    .then(this._checkResponse);
   }
 }
